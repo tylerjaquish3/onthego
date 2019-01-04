@@ -17,7 +17,7 @@
             <div class="x_panel dashboard_graph">
                 <div class="x_title">
                     <h2>Blog Posts</h2>
-                    <a href="" class="btn btn-primary">New Post</a>
+                    <a href="/posts/create" class="btn btn-primary">New Post</a>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
                             <a class="collapse-link" data-toggle="tooltip" data-placement="left" title="" data-original-title="Collapse Area">

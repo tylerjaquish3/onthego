@@ -5,17 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
-class HomeController extends Controller
+class BlogController extends Controller
 {
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function show(int $id)
     {
-    	$posts = Post::where('is_active', 1)->get();
+    	$post = Post::find($id);
 
-        return view('home.index', ['posts' => $posts]);
+        return view('posts.show', ['post' => $post]);
     }
 }

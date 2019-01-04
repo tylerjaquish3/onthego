@@ -40,25 +40,6 @@ class DashboardController extends Controller
                 $badge_text = $post->is_active == 1 ? 'Published' : 'Draft';
                 return '<span class="badge bg-' . $badge_color . '">' . $badge_text . '</span>';
             })
-            // ->editColumn('quantity', function ($product) {
-            //     return '<span class="tooltipster-icon tooltipster" data-url="' . route("products.getProductTooltip", ['id' => $product->id]) . '">' . $product->totalInventory . '</span>';
-            // })
-            // ->editColumn('wholesale_cost', function ($product) {
-            //     return $product->wholesale_cost ? '$' . $product->wholesale_cost : '';
-            // })
-            // ->editColumn('our_price', function ($product) {
-            //     return $product->currentRetailPrice ? '$'.$product->currentRetailPrice : '';
-            // })
-            // ->editColumn('map', function ($product) {
-            //     return $product->map ? '$' . $product->map : '';
-            // })
-            // ->editColumn('asin', function ($product) {
-            //     return '<a target="_blank" href="http://amazon.com/dp/' . $product->asin . '">' . $product->asin . '</a>';
-            // })
-            // ->editColumn('title', function ($product) {
-            //     return strlen($product->title) > 50 ? '<span data-toggle="tooltip" data-placement="top" title="' . $product->title . '">' . substr($product->title, 0, 50) . '...' . '</span>'
-            //         : $product->title;
-            // })
             ->rawColumns(['title', 'is_active'])
             ->setRowId('id')
             ->make(true);

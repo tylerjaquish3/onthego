@@ -18,6 +18,8 @@
 */
 
 Route::resource('/', 'HomeController');
+Route::resource('blog', 'BlogController');
+Route::resource('comment', 'CommentController');
 
 /*
 |--------------------------------------------------------------------------

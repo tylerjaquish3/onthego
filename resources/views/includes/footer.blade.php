@@ -28,8 +28,8 @@
     <script src="/js/toucheffects.js"></script>
     <script src="/js/google-code-prettify/prettify.js"></script>
     <script src="/js/jquery.prettyPhoto.js"></script>
-    <script src="/js/portfolio/jquery.quicksand.js"></script>
-    <script src="/js/portfolio/setting.js"></script>
+    <!-- <script src="/js/portfolio/jquery.quicksand.js"></script>
+    <script src="/js/portfolio/setting.js"></script> -->
     <script src="/js/animate.js"></script>
 
     <!-- Template Custom JavaScript File -->

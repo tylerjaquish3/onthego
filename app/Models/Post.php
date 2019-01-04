@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['title', 'content_html', 'is_active', 'created_by'];
+
+    /**
      * Get the vendor that owns the product.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

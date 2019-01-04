@@ -40,12 +40,14 @@
             </div>
 
             <div class="span8">
+
+                @foreach($posts as $post)
                 <article>
                     <div class="row">
                         <div class="span8">
                             <div class="post-image">
                                 <div class="post-heading">
-                                    <h3><a href="#">This is an example of standard post format</a></h3>
+                                    <h3><a href="/blog/{{ $post->id }}">{{ $post->title }}</a></h3>
                                 </div>
 
                                 <img src="img/dummies/blog/img1.jpg" alt="" />
@@ -64,56 +66,7 @@
                         </div>
                     </div>
                 </article>
-
-                <article>
-                    <div class="row">
-                        <div class="span8">
-                            <div class="post-image">
-                                <div class="post-heading">
-                                    <h3><a href="#">This is an example of standard post format</a></h3>
-                                </div>
-
-                                <img src="img/dummies/blog/img1.jpg" alt="" />
-                            </div>
-                            <div class="meta-post">
-                                <a href="#" class="author">By<br /> Admin</a>
-                                <a href="#" class="date">10 Jun<br /> 2013</a>
-                            </div>
-                            <div class="post-entry">
-                                <p>
-                                Qui ut ceteros comprehensam. Cu eos sale sanctus eligendi, id ius elitr saperet, ocurreret pertinacia pri an. No mei nibh consectetuer, semper laoreet perfecto ad qui, est rebum nulla argumentum ei. Fierent adipisci iracundia est ei, usu timeam persius
-                                ea. Usu ea justo malis, pri quando everti electram ei, ex homero omittam salutatus...
-                                </p>
-                                <a href="#" class="btn btn-color">Read more <i class="icon-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article>
-                    <div class="row">
-                        <div class="span8">
-                            <div class="post-image">
-                                <div class="post-heading">
-                                    <h3><a href="#">This is an example of standard post format</a></h3>
-                                </div>
-
-                                <img src="img/dummies/blog/img1.jpg" alt="" />
-                            </div>
-                            <div class="meta-post">
-                                <a href="#" class="author">By<br /> Admin</a>
-                                <a href="#" class="date">10 Jun<br /> 2013</a>
-                            </div>
-                            <div class="post-entry">
-                                <p>
-                                Qui ut ceteros comprehensam. Cu eos sale sanctus eligendi, id ius elitr saperet, ocurreret pertinacia pri an. No mei nibh consectetuer, semper laoreet perfecto ad qui, est rebum nulla argumentum ei. Fierent adipisci iracundia est ei, usu timeam persius
-                                ea. Usu ea justo malis, pri quando everti electram ei, ex homero omittam salutatus...
-                                </p>
-                                <a href="#" class="btn btn-color">Read more <i class="icon-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
+                @endforeach
 
                 <div id="pagination">
                     <span class="all">Page 1 of 3</span>

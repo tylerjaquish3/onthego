@@ -15,6 +15,7 @@
     <link rel="apple-touch-icon-precomposed" href="{{ asset("/images/favicon-152.png") }}">
     @stack('stylesheets')
     <link href="{{ asset("/css/full_sparkle.css") }}" rel="stylesheet">
+    <link href="{{ asset("/css/admin.css") }}" rel="stylesheet">
     <script src="{{ asset("/js/jquery-full.js") }}"></script>
     @stack('header-scripts')
 
