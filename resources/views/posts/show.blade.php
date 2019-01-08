@@ -17,11 +17,9 @@
                         <h5 class="widgetheading">Recent posts</h5>
 
                         <ul class="cat">
-                        	<li><i class="icon-angle-right"></i> <a href="#">Lorem ipsum dolor sit amet</a></li>
-                        	<li><i class="icon-angle-right"></i> <a href="#">Ancillae senserit scribentur ea vel</a></li>
-                        	<li><i class="icon-angle-right"></i> <a href="#">Persius nostrum eleifend ad has</a></li>
-                        	<li><i class="icon-angle-right"></i> <a href="#">Facilis mediocrem urbanitas ad sed</a></li>
-                        	<li><i class="icon-angle-right"></i> <a href="#">Eripuit veritus docendi cum ut</a></li>
+                            @foreach ($recentPosts as $recentPost)
+                        	<li><i class="icon-angle-right"></i> <a href="{{ $recentPost->id }}">{{ $recentPost->title }}</a></li>
+                        	@endforeach
                         </ul>
                     </div>
                 </aside>
@@ -39,7 +37,7 @@
                             </div>
                             <div class="meta-post">
                                 <a href="#" class="author">By<br /> {{ $post->creator->name }}</a>
-                                <a href="#" class="date">{{ date('M j', strtotime($post->updated_at)) }}<br />{{ date('Y', strtotime($post->updated_at)) }}</a>
+                                <a href="#" class="date">{{ date('j M', strtotime($post->updated_at)) }}<br />{{ date('Y', strtotime($post->updated_at)) }}</a>
                             </div>
                             {!! $post->content_html !!}
                         </div>

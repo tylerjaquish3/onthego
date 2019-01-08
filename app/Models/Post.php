@@ -11,7 +11,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'content_html', 'is_active', 'created_by'];
+    protected $fillable = ['title', 'category_id', 'content_html', 'is_active', 'created_by'];
 
     /**
      * Get the vendor that owns the product.
@@ -31,5 +31,15 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');
+    }
+
+    /**
+     * Get the vendor that owns the product.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category', 'category_id', 'id');
     }
 }

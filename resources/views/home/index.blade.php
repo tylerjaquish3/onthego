@@ -13,7 +13,7 @@
         <h2>Welcome!</h2>
         <h3>On the Go with Justin and Oksana</h3>
         <div>
-            <a href="#content" class="btn-get-started scrollto">Get Started</a>
+            <a href="#content" class="btn-get-started scrollto">Start Reading</a>
         </div>
     </div>
 </section>
@@ -28,11 +28,19 @@
                     <div class="widget">
                         <h5 class="widgetheading">Recent posts</h5>
                         <ul class="cat">
-                            <li><i class="icon-angle-right"></i> <a href="#">Lorem ipsum dolor sit amet</a></li>
-                            <li><i class="icon-angle-right"></i> <a href="#">Ancillae senserit scribentur ea vel</a></li>
-                            <li><i class="icon-angle-right"></i> <a href="#">Persius nostrum eleifend ad has</a></li>
-                            <li><i class="icon-angle-right"></i> <a href="#">Facilis mediocrem urbanitas ad sed</a></li>
-                            <li><i class="icon-angle-right"></i> <a href="#">Eripuit veritus docendi cum ut</a></li>
+                            @foreach ($recentPosts as $recentPost)
+                                <li><i class="icon-angle-right"></i> <a href="{{ $recentPost->id }}">{{ $recentPost->title }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                    <div class="widget">
+                        <h5 class="widgetheading">Categories</h5>
+                        <ul class="cat">
+                            @foreach ($categories as $category)
+                                <li><i class="icon-angle-right"></i> <a href="#">{{ $category->name }}</a><span> ({{ $category->categoryCount }})</span></li>
+                                
+                            @endforeach
                         </ul>
                     </div>
 
@@ -53,15 +61,15 @@
                                 <img src="img/dummies/blog/img1.jpg" alt="" />
                             </div>
                             <div class="meta-post">
-                                <a href="#" class="author">By<br /> Admin</a>
-                                <a href="#" class="date">10 Jun<br /> 2013</a>
+                                <a href="#" class="author">By<br /> {{ $post->creator->name }}</a>
+                                <a href="#" class="date">{{ date('j M', strtotime($post->updated_at)) }}<br />{{ date('Y', strtotime($post->updated_at)) }}</a>
+                                <br /><br /><p>Category: {{ $post->category->name }}</p>
                             </div>
                             <div class="post-entry">
                                 <p>
-                                Qui ut ceteros comprehensam. Cu eos sale sanctus eligendi, id ius elitr saperet, ocurreret pertinacia pri an. No mei nibh consectetuer, semper laoreet perfecto ad qui, est rebum nulla argumentum ei. Fierent adipisci iracundia est ei, usu timeam persius
-                                ea. Usu ea justo malis, pri quando everti electram ei, ex homero omittam salutatus...
+                                {!! substr($post->content_html, 0, 335) !!}...
                                 </p>
-                                <a href="#" class="btn btn-color">Read more <i class="icon-angle-right"></i></a>
+                                <a href="/blog/{{ $post->id }}" class="btn btn-color">Read more <i class="icon-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -82,71 +90,26 @@
 <section id="works">
     <div class="container">
         <div class="row">
-          <div class="span12">
-            <h3>Photos</h3>
-            <div class="row">
+            <div class="span12">
+                <h3>Photos</h3>
+                <div class="row">
 
-              <div class="grid cs-style-3">
-                <div class="span3">
-                  <div class="item">
-                    <figure>
-                      <div><img src="img/dummies/works/1.jpg" alt=""></div>
-                      <figcaption>
-                        <h3>Portfolio name</h3>
-                        <p>
-                          <a href="img/dummies/works/big.png" data-pretty="prettyPhoto[gallery1]" title="Portfolio caption here"><i class="icon-zoom-in icon-circled icon-bglight icon-2x active"></i></a>
-                          <a href="#"><i class="icon-file icon-circled icon-bglight icon-2x active"></i></a>
-                        </p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
-                <div class="span3">
-                  <div class="item">
-                    <figure>
-                      <div><img src="img/dummies/works/2.jpg" alt=""></div>
-                      <figcaption>
-                        <h3>Portfolio name</h3>
-                        <p>
-                          <a href="img/dummies/works/big.png" data-pretty="prettyPhoto[gallery1]" title="Portfolio caption here"><i class="icon-zoom-in icon-circled icon-bglight icon-2x active"></i></a>
-                          <a href="#"><i class="icon-file icon-circled icon-bglight icon-2x active"></i></a>
-                        </p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
-                <div class="span3">
-                  <div class="item">
-                    <figure>
-                      <div><img src="img/dummies/works/3.jpg" alt=""></div>
-                      <figcaption>
-                        <h3>Portfolio name</h3>
-                        <p>
-                          <a href="img/dummies/works/big.png" data-pretty="prettyPhoto[gallery1]" title="Portfolio caption here"><i class="icon-zoom-in icon-circled icon-bglight icon-2x active"></i></a>
-                          <a href="#"><i class="icon-file icon-circled icon-bglight icon-2x active"></i></a>
-                        </p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
-                <div class="span3">
-                  <div class="item">
-                    <figure>
-                      <div><img src="img/dummies/works/4.jpg" alt=""></div>
-                      <figcaption>
-                        <h3>Portfolio name</h3>
-                        <p>
-                          <a href="img/dummies/works/big.png" data-pretty="prettyPhoto[gallery1]" title="Portfolio caption here"><i class="icon-zoom-in icon-circled icon-bglight icon-2x active"></i></a>
-                          <a href="#"><i class="icon-file icon-circled icon-bglight icon-2x active"></i></a>
-                        </p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
-              </div>
+                    <div class="grid cs-style-3">
 
+                        @foreach($photos as $photo)
+                            <div class="span3">
+                                <div class="item">
+                                    <a href="img/dummies/works/{{ $photo->path }}" data-pretty="prettyPhoto[gallery1]" title="{{ $photo->caption }}">
+                                        <img src="img/dummies/works/{{ $photo->path }}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
+                    
+                    </div>
+
+                </div>
             </div>
-          </div>
         </div>
     </div>
 </section>

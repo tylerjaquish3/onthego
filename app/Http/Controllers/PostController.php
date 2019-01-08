@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
 use Auth;
 
 class PostController extends Controller
@@ -23,8 +24,12 @@ class PostController extends Controller
     public function edit($id)
     {
     	$post = Post::find($id);
+    	$categories = Category::orderBy('id', 'asc')->get();
+    	foreach($categories as $category) {
+    		$categoriesArray[$category->id] = $category->name;
+    	}
 
-    	return view('posts.edit', ['post' => $post]);
+    	return view('posts.edit', ['post' => $post, 'categories' => $categoriesArray]);
     }
 
     public function update(Request $request, int $id)
@@ -36,6 +41,7 @@ class PostController extends Controller
     	$post = Post::find($id);
     	$post->update([
     		'title' => $request->title,
+    		'category_id' => $request->category_id,
     		'content_html' => $request->content_html,
     		'is_active' => $request->is_active,
     		'created_by' => $createdBy
@@ -52,6 +58,7 @@ class PostController extends Controller
 
     	Post::create([
     		'title' => $request->title,
+    		'category_id' => $request->category_id,
     		'content_html' => $request->content_html,
     		'is_active' => $request->is_active,
     		'created_by' => $createdBy

@@ -37,9 +37,14 @@
                             @endif
 
                             <div class="form-group">
-                                
                                 <div class="col-sm-6 col-xs-12">
                                     {!! Form::text('title', null, ['required', 'class'=>'form-control col-xs-12', 'placeholder'=>'Title *', 'id' => 'title']) !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-6 col-xs-12">
+                                    {!! Form::select('category', $categories, $post->category_id, ['required', 'class'=>'form-control col-xs-12', 'id' => 'category', 'placeholder' => 'Category *']) !!}
                                 </div>
                             </div>
 
@@ -129,10 +134,11 @@
             data: {
                 title: $('#title').val(), 
                 content_html: myEditor.getData(),
+                category: $('#category').val(),
                 is_active: isActive
             },
             success: function (data) {
-                window.location = '/dashboard';
+                window.location = '/admin/dashboard';
             }
         });
     }

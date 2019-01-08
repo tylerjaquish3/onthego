@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +27,7 @@ class DashboardController extends Controller
      */
     public function getPostData()
     {
-        $posts = Post::with('creator')->get();
+        $posts = Post::with('category', 'creator')->get();
 
         return DataTables::of($posts)
             ->editColumn('title', function ($post) {
@@ -43,6 +44,13 @@ class DashboardController extends Controller
             ->rawColumns(['title', 'is_active'])
             ->setRowId('id')
             ->make(true);
+    }
+
+    public function editPhotos()
+    {
+        $photos = Photo::all();
+
+        return view('dashboard.photos', ['photos' => $photos]);
     }
 
 }

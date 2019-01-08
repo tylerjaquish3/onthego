@@ -17,9 +17,11 @@
 |--------------------------------------------------------------------------
 */
 
-Route::resource('/', 'HomeController');
+Route::resource('/', 'BlogController');
 Route::resource('blog', 'BlogController');
 Route::resource('comment', 'CommentController');
+Route::get('/contact', 'BlogController@showContact');
+Route::get('/photos', 'BlogController@showPhotos');
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +37,7 @@ Route::post('/login', 'Auth\AuthController@login')->name('auth.post');
 Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
 
 // Admin Routes
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'admin/'], function () {
 
     Route::get('/home', function () {
         return Redirect::route('dashboard.index');
@@ -57,7 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
     | Photos
     |--------------------------------------------------------------------------
     */
-    Route::resource('/photos', 'PhotoController');
+    Route::get('photos', 'DashboardController@editPhotos')->name('dashboard.photos');
 
     /*
     |--------------------------------------------------------------------------

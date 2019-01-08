@@ -13,7 +13,7 @@
                     <div class="navigation">
                         <nav>
                             <ul class="nav topnav">
-                                <li><a href="/">Home</a></li>
+                                <li><a href="/">Blog</a></li>
                                 <li><a href="/photos">Photos </a></li>
                                 <li><a href="/contact">Contact </a></li>
                                 <li><a href="/login"><i class="icon-bell"></i></a></li>

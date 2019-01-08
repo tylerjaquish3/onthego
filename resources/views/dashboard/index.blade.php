@@ -32,13 +32,15 @@
                         <thead>
                             <tr>
                                 <th>Title</th>
+                                <th>Category</th>
                                 <th>Status</th>
                                 <th>Created By</th>
-                                <th>Date</th>
+                                <th>Last Updated</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -55,21 +57,21 @@
 @endsection
 
 @push('scripts')
-
 <script>
     
-    $tableUnshipped = $('#datatable-posts').DataTable({
+    $tablePosts = $('#datatable-posts').DataTable({
         ajax: {
             url: "{{ route('dashboard.posts') }}",
         },
         columns: [
             { data: 'title', name: 'title'},
+            { data: 'category.name', name: 'category.name'},
             { data: 'is_active', name: 'is_active'},
-            { data: 'creator.name', name: 'creator'},
-            { data: 'created_at', name: 'created_at'}
+            { data: 'creator.name', name: 'creator.name'},
+            { data: 'updated_at', name: 'updated_at'}
         ],
         serverSide: true,
-        order: [[3, "asc"]],
+        order: [[4, "desc"]],
     });
 
 </script>
