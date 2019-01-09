@@ -78,6 +78,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin/'], function () {
     */
     Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
         Route::get('posts', 'DashboardController@getPostData')->name('posts');
+        Route::patch('updatePhotos', 'DashboardController@updatePhotos')->name('updatePhotos');
     });
     Route::resource('/dashboard', 'DashboardController');
 

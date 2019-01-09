@@ -53,4 +53,29 @@ class DashboardController extends Controller
         return view('dashboard.photos', ['photos' => $photos]);
     }
 
+    public function updatePhotos(Request $request)
+    {
+        $captions = $request->caption;
+        $active = $request->is_active;
+
+        // dd($active);
+
+        foreach ($captions as $id => $caption) {
+            $photo = Photo::find($id);
+
+            $isActive = 0;
+            if (array_key_exists($id, $active)) {
+                $isActive = 1;
+            }
+
+            $photo->update([
+                'caption' => $caption,
+                'is_active' => $isActive
+            ]);
+        }
+
+        return json_encode(['error' => false, 'message' => 'Photos were saved.']);
+    }
+
+
 }

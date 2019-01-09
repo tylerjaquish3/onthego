@@ -31,21 +31,31 @@
                     <div class="container">
                         <div class="row">
                             <a id="save_photos" class="btn btn-success">Save Changes</a>
-                            <a href="/photos/create" class="btn btn-primary">Upload Photos</a>
+                            <a href="/admin/photos/create" class="btn btn-primary">Upload Photos</a>
                         </div>
 
-                        
-                        @foreach ($photos as $photo)
-                            <div class="row">
-                                <div class="col-xs-12 col-md-4">
-                                    <img src="/img/dummies/works/{{ $photo->path }}" width="100%">
+                        <form id="editPhotoForm">
+                            <?php $count = 0; ?>
+                            @foreach ($photos as $photo)
+
+                                @if ($count % 2 === 1)
+                                <div class="row">
+                                @endif
+                                    <div class="col-xs-12 col-md-2">
+                                        <img src="/img/dummies/works/{{ $photo->path }}" width="100%">
+                                    </div>
+                                    <div class="col-xs-12 col-md-4">
+                                        <textarea name="caption[{{$photo->id}}]" class="form-control full-width">{{ $photo->caption }}</textarea>
+                                        <input type="checkbox" name="is_active[{{$photo->id}}]" @if($photo->is_active) checked @endif> Active
+                                    </div>
+                                @if ($count % 2 === 1)    
                                 </div>
-                                <div class="col-xs-12 col-md-8">
-                                    <textarea name="caption[]" class="form-control full-width">{{ $photo->caption }}</textarea><br />
-                                    <input type="checkbox" name="is_active[]" @if($photo->is_active) checked @endif> Active
-                                </div>
-                            </div>
-                        @endforeach
+                                @endif
+
+                                <?php $count++; ?>
+                            @endforeach
+
+                        </form>
                     
                     </div>
                 </div>
@@ -59,7 +69,19 @@
 @push('scripts')
 <script>
     
-    
+    // Send form to controller
+    $('#save_photos').on('click', function(e) {
+        
+        $.ajax({
+            url: "{{ route('dashboard.updatePhotos') }}",
+            method: 'PATCH',
+            dataType: 'json',
+            data:  $("#editPhotoForm").serialize(),
+            success: function (data) {
+                addAlertToPage('success', 'Success', 'Photos were saved.', 5);
+            }
+        });
+    });
 
 </script>
 @endpush

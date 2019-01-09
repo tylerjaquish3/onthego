@@ -64,9 +64,6 @@ class PostController extends Controller
     		'created_by' => $createdBy
     	]);
 
-    	$title = 'Saved';
-        $message = 'Post was successfully created.';
-
         return json_encode(['error' => false, 'message' => 'Post was saved.']);
     }
 }
