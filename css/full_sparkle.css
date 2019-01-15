@@ -12163,7 +12163,7 @@ table.dataTable, table.dataTable.compact {
       -moz-appearance: none;
       appearance: none;
       background-color: #ffffff;
-      background-image: url("/images/sort_desc.png");
+      background-image: url("/img/sort_desc.png");
       background-size: 19px 19px;
       background-position: 100% 20%;
       background-repeat: no-repeat;

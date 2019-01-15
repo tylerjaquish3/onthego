@@ -37,35 +37,7 @@ $photos = get('SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC
     <div class="container">
         <div class="row">
             <div class="span4">
-                <aside class="left-sidebar">
-
-                    <div class="widget">
-                        <h5 class="widgetheading">Recent posts</h5>
-                        <ul class="cat">
-                            <?php 
-                            while($recentPost = mysqli_fetch_array($recentPosts)) { ?>
-                                <li><i class="icon-angle-right"></i> <a href="<?php echo $recentPost['id']; ?>"><?php echo $recentPost['title']; ?></a></li>
-                            <?php 
-                            } ?>
-                        </ul>
-                    </div>
-
-                    <div class="widget">
-                        <h5 class="widgetheading">Categories</h5>
-                        <ul class="cat">
-                            <li><i class="icon-angle-right"></i> <a href="/">All</a><span> ({{ $postCount }})</span></li>
-                            <?php 
-                            while($category = mysqli_fetch_array($categories)) { ?>
-                                <li>
-                                    <i class="icon-angle-right"></i> 
-                                    <a href="?category=<?php echo $category['id']; ?>"><?php echo $category['category_name']; ?></a><span> (<?php echo $category['categoryCount']; ?>)</span>
-                                </li>
-                            <?php 
-                            } ?>
-                        </ul>
-                    </div>
-
-                </aside>
+                <?php include('includes/sidebar.php'); ?>
             </div>
 
             <div class="span8">
@@ -77,7 +49,7 @@ $photos = get('SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC
                         <div class="span8">
                             <div class="post-image">
                                 <div class="post-heading">
-                                    <h3><a href="/blog/<?php echo $post['postId']; ?>"><?php echo $post['title']; ?></a></h3>
+                                    <h3><a href="/blog?id=<?php echo $post['postId']; ?>"><?php echo $post['title']; ?></a></h3>
                                 </div>
 
                                 <img src="img/dummies/blog/img1.jpg" alt="" />
@@ -91,7 +63,7 @@ $photos = get('SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC
                                 <p>
                                 <?php echo substr($post['content_html'], 0, 335)."..."; ?>
                                 </p>
-                                <a href="/blog/<?php echo $post['postId']; ?>" class="btn btn-color">Read more <i class="icon-angle-right"></i></a>
+                                <a href="/blog?id=<?php echo $post['postId']; ?>" class="btn btn-color">Read more <i class="icon-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
