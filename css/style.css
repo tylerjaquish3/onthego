@@ -377,12 +377,12 @@ ul.nav li.dropdown ul li i {
   transition: 0.5s;
   margin: 10px;
   color: #fff;
-	background: #84c75b;
+	background: #45D7FA;
 }
 
 .btn-get-started:hover {
 	color: #fff;
-	background: #57a825;
+	background: #45D7FA;
 	text-decoration: none;
 }
 
@@ -2726,7 +2726,7 @@ ul.the-icons {
 /* colors */
 
 .options_box a.t_default {
-	background:#8fc04e;
+	background:#45D7FA;
 }
 .options_box a.t_stamp {
 	background:#D2391D;

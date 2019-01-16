@@ -4,6 +4,7 @@ session_start();
 include '../includes/env.php';
 include '../includes/functions.php';
 var_dump($_POST);
+echo "<br><hr><br>";
 
 if (isset($_POST) && $_POST['action'] == 'save-post') {
 
@@ -26,9 +27,7 @@ if (isset($_POST) && $_POST['action'] == 'save-post') {
 
 	// dd($sql);
 
-	// If the user is new, send an email to update password
 	if(mysqli_query($conn, $sql)){
-		
 		if ($isNew && $isActive) {
 			$result = ['type' => 'success', 'message' => 'Post has been saved and published.'];
 		} elseif ($isNew) {
@@ -39,14 +38,88 @@ if (isset($_POST) && $_POST['action'] == 'save-post') {
 			$result = ['type' => 'success', 'message' => 'Post has been updated and saved as draft.'];
 		}
 	} else {
-		dd(mysqli_error($conn));
+		// dd(mysqli_error($conn));
 		$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
 	}
 
     echo json_encode($result);
     die;
 }
+
+if (isset($_POST) && $_POST['action'] == 'update-photos') {
+	$captions = escape($_POST['caption']);
+    $active = $_POST['is_active'];
+
+    foreach ($captions as $id => $caption) {
+
+        $isActive = 0;
+        if (array_key_exists($id, $active)) {
+            $isActive = 1;
+        }
+
+        $sql = "UPDATE photos SET caption='$caption', is_active='$isActive' WHERE id = ".$id;
+        if(mysqli_query($conn, $sql)){
+        	$result = ['type' => 'success', 'message' => 'Photos have been updated.'];
+		} else {
+			dd(mysqli_error($conn));
+			$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
+		}
+      	
+    }
+
+    echo json_encode($result);
+    die;
+}
 	
+if (isset($_POST) && $_POST['action'] == 'new-photos') {
+
+	$createdAt = date('Y-m-d H:i:s');
+	// Upload image first
+	$targetDir = "../img/uploaded/";
+
+	// var_dump($_FILES);
+	// echo "<br><hr><br>";
+	
+	if (isset($_FILES)) {
+
+		$imageNumber = 1;
+	
+		foreach($_FILES as $file) {
+
+			if ($file['name'] != '') {
+
+				// var_dump($file);
+				
+				$temp = explode(".", $file["name"]); 
+				$newFileName = round(microtime(true)).rand(1,100).'.'.end($temp);
+				$targetFile = $targetDir.$newFileName;
+
+				$return = uploadAttachment($targetFile, $file);
+					
+				$fileName = $targetDir.$newFileName;
+
+				var_dump($fileName);
+
+				// $fields .= 'image_path,';
+				// $insertItems = '"'.$newFileName.'",';
+				// $setValues .= 'image_path="'.$newFileName.'", ';
+
+				$sql = "INSERT INTO photos (path, caption, is_active, created_at) VALUES ('$newFileName', '', 1, '$createdAt')";
+			        if(mysqli_query($conn, $sql)){
+			    	$result = ['type' => 'success', 'message' => 'Photos have been updated.'];
+				} else {
+					dd(mysqli_error($conn));
+					$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
+				}
+
+				$imageNumber++;
+			}
+		}
+	}
+
+	echo json_encode($result);
+    die;
+}
 
 
 ?>

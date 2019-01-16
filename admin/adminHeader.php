@@ -36,7 +36,7 @@ if (!isset($_SESSION["user_id"])) {
                     <div class="navbar nav_title" style="border: 0;">
                         <a href="/" class="site_title">
                             <!-- <img src="{{ url('/images/ET-logo-color-notag.png') }}" id="full"> -->
-                            <span>On the Go</span>
+                            On the Go | Admin
                         </a>
                     </div>
 
@@ -46,7 +46,7 @@ if (!isset($_SESSION["user_id"])) {
                         <div class="menu_section">
                             <ul class="nav side-menu">
                                 <li><a href="/admin"><i class="fa fa-home"></i> Dashboard</a></li>
-                                <li><a href="/admin/photos"><i class="fa fa-shopping-cart"></i> Photos</a></li>
+                                <li><a href="/admin/photos.php"><i class="fa fa-shopping-cart"></i> Photos</a></li>
                             </ul>
                         </div>
 

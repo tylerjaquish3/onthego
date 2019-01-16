@@ -5,7 +5,7 @@
         <div class="row nomargin">
             <div class="span4">
                 <div class="logo">
-                    <h1><a href="/"><i class="icon-tint"></i> On the Go</a></h1>
+                    <h1><a href="/"><i class="icon-globe"></i> On the Go</a></h1>
                 </div>
             </div>
             <div class="span8">

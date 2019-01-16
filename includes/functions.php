@@ -112,7 +112,9 @@ function uploadAttachment($target_file, $fileToUpload)
 		$return .= "Sorry, your file was not uploaded. ";
 	// if everything is ok, try to upload file
 	} else {
-		image_fix_orientation($fileToUpload["tmp_name"]);
+		if ($uploadedFileType == "jpg" || $uploadedFileType == "jpeg") {
+			image_fix_orientation($fileToUpload["tmp_name"]);
+		}
 		
 		if (!move_uploaded_file($fileToUpload["tmp_name"], $target_file)) {
 			$return .= "Sorry, there was an error uploading your file. ";

@@ -27,8 +27,8 @@ $photos = get('SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC
                             while($photo = mysqli_fetch_array($photos)) { ?>
                                 <li class="item-thumbs span3 design" data-id="id-0" data-type="web">
                                     <div class="item">
-                                        <a href="/img/dummies/works/<?php echo $photo['path']; ?>" data-pretty="prettyPhoto[gallery1]" title="<?php echo $photo['caption']; ?>">
-                                            <img src="/img/dummies/works/<?php echo $photo['path']; ?>" alt="">
+                                        <a href="/img/uploaded/<?php echo $photo['path']; ?>" data-pretty="prettyPhoto[gallery1]" title="<?php echo $photo['caption']; ?>">
+                                            <img src="/img/uploaded/<?php echo $photo['path']; ?>" alt="">
                                         </a>
                                     </div>
                                 </li>
