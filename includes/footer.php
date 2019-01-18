@@ -4,7 +4,7 @@
                 <div class="span6">
                     <div class="widget">
                         <div class="footer_logo">
-                            <h3><a href="/"><i class="icon-tint"></i> On the Go with J and O</a></h3>
+                            <h3><a href="/"><i class="icon-globe"></i> On the Go with J and O</a></h3>
                         </div>
                         Thank you for showing interest in our blog!
                         <p><i class="icon-envelope-alt"></i> <a href="/contact">Send us a Message</a></p>
@@ -23,7 +23,7 @@
     ================================================== -->
     <script src="/js/jquery.js"></script>
     <script src="/js/jquery.easing.1.3.js"></script>
-    <script src="/js/bootstrap.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/modernizr.custom.js"></script>
     <script src="/js/toucheffects.js"></script>
     <script src="/js/google-code-prettify/prettify.js"></script>

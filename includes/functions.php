@@ -72,11 +72,11 @@ function escape($str)
 	return str_replace($search,$replace,$str);
 }
 
-function uploadAttachment($target_file, $fileToUpload)
+function uploadAttachment($targetFile, $fileToUpload)
 {
 	$uploadOk = 1;
 	$return = '';
-	$uploadedFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+	$uploadedFileType = pathinfo($targetFile,PATHINFO_EXTENSION);
 	// Check if image file is a actual image or fake image
 	if(isset($_POST["submit"])) {
 		$check = getimagesize($fileToUpload["tmp_name"]);
@@ -88,7 +88,7 @@ function uploadAttachment($target_file, $fileToUpload)
 		}
 	}
 	// Check if file already exists
-	if (file_exists($target_file)) {
+	if (file_exists($targetFile)) {
 		$return .= "File name already exists. ";
 		$uploadOk = 0;
 	} 
@@ -115,8 +115,11 @@ function uploadAttachment($target_file, $fileToUpload)
 		if ($uploadedFileType == "jpg" || $uploadedFileType == "jpeg") {
 			image_fix_orientation($fileToUpload["tmp_name"]);
 		}
-		
-		if (!move_uploaded_file($fileToUpload["tmp_name"], $target_file)) {
+		// Compress image
+		$image = compressImage($fileToUpload["tmp_name"]);
+		$quality = 60;
+
+		if (!imagejpeg($image, $targetFile, $quality)) {
 			$return .= "Sorry, there was an error uploading your file. ";
 		} else {
 			$return = 'success';
@@ -124,6 +127,22 @@ function uploadAttachment($target_file, $fileToUpload)
 	}
 	
 	return $return;
+}
+
+// Compress image
+function compressImage($source) 
+{
+	$info = getimagesize($source);
+
+	if ($info['mime'] == 'image/jpeg') {
+		$image = imagecreatefromjpeg($source);
+	} elseif ($info['mime'] == 'image/gif') {
+		$image = imagecreatefromgif($source);
+	} else {
+		$image = imagecreatefrompng($source);
+	}
+
+	return $image;
 }
 
 

@@ -18,29 +18,18 @@
     <div id="loginPage">
 
         <form id="loginForm"  method="POST" action="">
-            
             <div id="login_bumper">
                 <h5 class="title">On the Go Admin</h5>
                 <div class="login-fields">
                     <input type="text" name="myusername" class="block_input" placeholder="email" required autofocus>
-
                     <input type="password" name="mypassword" id="mypassword" class="block_input" placeholder="password" required/>
-                
-                    <div class="input-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"  name="remember" class="flat">
-                                <span>Remember Me</span>
-                            </label>
-                        </div>
-                    </div>
 
                     <div class="text--right">
-                        <button type="submit" class="btn btn-primary pull-right">LOG IN</button>
+                        <a href="/" class="btn btn-primary">Go Home</a>
+                        <button type="submit" class="btn btn-success pull-right">LOG IN</button>
                     </div>
                 </div>
             </div>
-
         </form>
 
 

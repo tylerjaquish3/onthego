@@ -64,7 +64,6 @@ if (isset($_POST) && $_POST['action'] == 'update-photos') {
 			dd(mysqli_error($conn));
 			$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
 		}
-      	
     }
 
     echo json_encode($result);
@@ -74,42 +73,30 @@ if (isset($_POST) && $_POST['action'] == 'update-photos') {
 if (isset($_POST) && $_POST['action'] == 'new-photos') {
 
 	$createdAt = date('Y-m-d H:i:s');
-	// Upload image first
 	$targetDir = "../img/uploaded/";
 
-	// var_dump($_FILES);
-	// echo "<br><hr><br>";
-	
 	if (isset($_FILES)) {
 
 		$imageNumber = 1;
 	
 		foreach($_FILES as $file) {
-
 			if ($file['name'] != '') {
-
-				// var_dump($file);
-				
 				$temp = explode(".", $file["name"]); 
 				$newFileName = round(microtime(true)).rand(1,100).'.'.end($temp);
 				$targetFile = $targetDir.$newFileName;
-
 				$return = uploadAttachment($targetFile, $file);
-					
+
 				$fileName = $targetDir.$newFileName;
 
-				var_dump($fileName);
-
-				// $fields .= 'image_path,';
-				// $insertItems = '"'.$newFileName.'",';
-				// $setValues .= 'image_path="'.$newFileName.'", ';
-
-				$sql = "INSERT INTO photos (path, caption, is_active, created_at) VALUES ('$newFileName', '', 1, '$createdAt')";
-			        if(mysqli_query($conn, $sql)){
-			    	$result = ['type' => 'success', 'message' => 'Photos have been updated.'];
-				} else {
-					dd(mysqli_error($conn));
-					$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
+				// Don't insert in DB unless upload was successful
+				if ($return == "success") {
+					$sql = "INSERT INTO photos (path, caption, is_active, created_at) VALUES ('$newFileName', '', 1, '$createdAt')";
+				        if(mysqli_query($conn, $sql)){
+				    	$result = ['type' => 'success', 'message' => 'Photos have been updated.'];
+					} else {
+						// dd(mysqli_error($conn));
+						$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
+					}
 				}
 
 				$imageNumber++;
@@ -117,8 +104,8 @@ if (isset($_POST) && $_POST['action'] == 'new-photos') {
 		}
 	}
 
-	echo json_encode($result);
-    die;
+	header("Location: ".URL."/admin/photos.php?message=".$result['type']);
+	die();
 }
 
 

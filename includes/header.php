@@ -16,7 +16,7 @@
                                 <li><a href="/">Blog</a></li>
                                 <li><a href="/photos">Photos </a></li>
                                 <li><a href="/contact">Contact </a></li>
-                                <li><a href="/admin"><i class="icon-bell"></i></a></li>
+                                <li><a href="/admin"><i class="icon-lock"></i></a></li>
                             </ul>
                         </nav>
                     </div>

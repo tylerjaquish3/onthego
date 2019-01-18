@@ -4,7 +4,7 @@ $currentPage = 'Blog';
 include('includes/app.php');
 
 $recentPosts = get('SELECT * FROM posts WHERE is_active = 1 ORDER BY updated_at DESC LIMIT 5');
-$categories = get('SELECT c.id, COUNT(c.id) as categoryCount, c.category_name FROM posts p JOIN categories c ON c.id = p.category_id GROUP BY c.id');
+$categories = get('SELECT c.id, COUNT(c.id) as categoryCount, c.category_name FROM posts p JOIN categories c ON c.id = p.category_id WHERE p.is_active = 1 GROUP BY c.id');
 $whereCategory = '';
 if (isset($_GET['category'])) {
     $whereCategory = 'AND category_id ='.$_GET['category'];
@@ -13,7 +13,7 @@ $categoryPosts = get('SELECT p.id as postId, title, content_html, p.updated_at, 
 
 $photos = get('SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC LIMIT 4');
 
-// var_dump($recentPosts);die;
+// var_dump($categoryPosts);die;
 // while($row = $recentPosts) {
 //     echo $row['id'];           
 // }
@@ -25,8 +25,9 @@ $photos = get('SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC
 <section id="intro">
     <div class="intro-content">
         <h2>Welcome!</h2>
-        <h3>On the Go with Justin and Oksana</h3>
-        <div>
+        <div class="container">
+            <p><span class="emphasized">On the Go with Justin and Oksana</span> is a digital journal of our faith, travels, and lessons learned while we trot the globe. We're glad you found interest in our blog and we would love to hear from you. Until we meet again...
+            <br />
             <a href="#content" class="btn-get-started scrollto">Start Reading</a>
         </div>
     </div>
@@ -79,36 +80,40 @@ $photos = get('SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC
     </div>
 </section>
 
-<section id="works">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <h3>
-                    Photos
-                    <a href="/photos" class="btn btn-color">View more <i class="icon-angle-right"></i></a>
-                </h3>
-                <div class="row">
+<?php 
+if(mysqli_num_rows($photos) > 0) { ?>
+    <section id="works">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <h3>
+                        Photos
+                        <a href="/photos" class="btn btn-color">View more <i class="icon-angle-right"></i></a>
+                    </h3>
+                    <div class="row">
 
-                    <div class="grid cs-style-3">
+                        <div class="grid cs-style-3">
 
-                        <?php 
-                        while($photo = mysqli_fetch_array($photos)) { ?>
-                            <div class="span3">
-                                <div class="item">
-                                    <a href="/img/dummies/works/<?php echo $photo['path']; ?>" data-pretty="prettyPhoto[gallery1]" title="<?php echo $photo['caption']; ?>">
-                                        <img src="/img/dummies/works/<?php echo $photo['path']; ?>" alt="">
-                                    </a>
+                            <?php 
+                            while($photo = mysqli_fetch_array($photos)) { ?>
+                                <div class="span3">
+                                    <div class="item">
+                                        <a href="/img/uploaded/<?php echo $photo['path']; ?>" data-pretty="prettyPhoto[gallery1]" title="<?php echo $photo['caption']; ?>">
+                                            <img src="/img/uploaded/<?php echo $photo['path']; ?>" alt="">
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                        <?php 
-                        } ?>
-                    
-                    </div>
+                            <?php 
+                            } ?>
+                        
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+<?php
+} ?>
 
 <?php include('includes/footer.php'); ?>

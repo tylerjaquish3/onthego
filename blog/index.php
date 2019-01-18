@@ -55,7 +55,7 @@ $comments = get('SELECT * FROM comments WHERE post_id = '.$postId);
                 <div class="about-author span8">
                     <a href="#" class="thumbnail align-left"><img src="img/avatar.png" alt="" /></a>
                     <h5><strong><a href="#">We Would Love to Hear from You!</a></strong></h5>
-                    <p>Leave a comment below, or <a href="/contact">contact us here</a>.</p>
+                    <p>Leave a comment below, or <a class="white-hover" href="/contact">send us a message</a>.</p>
                 </div>
 
                 <div class="comment-area">
@@ -68,7 +68,7 @@ $comments = get('SELECT * FROM comments WHERE post_id = '.$postId);
                             <div class="media-body">
                                 <div class="media-content">
                                     <h6><span><?php echo date('M j, Y', strtotime($comment['created_at'])); ?></span> <?php echo $comment['user_name']; ?></h6>
-                                    <p>{{ $comment->comment_text }} </p>
+                                    <p><?php echo $comment['comment_text']; ?></p>
                                 </div>
                             </div>
                         </div>
@@ -97,21 +97,22 @@ $comments = get('SELECT * FROM comments WHERE post_id = '.$postId);
 
 <script>
 
-    var post = @json($post);
+    var postId = "<?php echo $post['postId']; ?>"; 
 
     $('#save_comment').on('click', function(e) {
         $.ajax({
-            url: '/comment',
+            url: '../includes/handleForm.php',
             type: 'POST',
             dataType: 'json',
             data: {
+                action: 'save-comment',
                 user_name: $('#user_name').val(), 
                 comment_text: $('#comment_text').val(),
-                post_id: post.id,
+                post_id: postId,
                 _token: '{{ csrf_token() }}'
             },
             success: function (data) {
-                alert('saved');
+                console.log(data);
             }
         });
     });

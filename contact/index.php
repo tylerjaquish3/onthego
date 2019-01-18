@@ -11,30 +11,30 @@ include('../includes/app.php');
             <div class="span12">
                 <h4>We Would Love to Hear from You!</h4>
 
-                <form id="contactform" action="" method="post" role="form" class="contactForm">
+                <form id="contactform" role="form" class="contactForm">
 
-                    <div id="sendmessage">Your message has been sent. Thank you!</div>
-                    <div id="errormessage"></div>
+                    <div id="confirmation" style="display: none;"></div>
+                    <input type="hidden" name="action" value="send-message">
 
                     <div class="row">
                         <div class="span4 field form-group">
-                            <input type="text" name="name" placeholder="* Enter your full name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                            <input type="text" name="name" placeholder="* Enter your full name" />
                             <div class="validation"></div>
                         </div>
                         <div class="span4 field form-group">
-                            <input type="text" name="email" placeholder="* Enter your email address" data-rule="email" data-msg="Please enter a valid email" />
+                            <input type="text" name="email" placeholder="* Enter your email address" />
                             <div class="validation"></div>
                         </div>
                         <div class="span8 margintop10 field form-group">
-                            <input type="text" name="subject" placeholder="Enter your subject" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                            <input type="text" name="subject" placeholder="Enter your subject" />
                             <div class="validation"></div>
                         </div>
                         <div class="span8 margintop10 field form-group">
-                            <textarea rows="12" name="message" class="input-block-level" placeholder="* Your message here..." data-rule="required" data-msg="Please write something"></textarea>
+                            <textarea rows="12" name="message" class="input-block-level" placeholder="* Your message here..."></textarea>
                             <div class="validation"></div>
 
                             <p>
-                                <button class="btn btn-color margintop10 pull-left" type="submit">Send message</button>
+                                <a class="btn btn-color margintop10 pull-left" id="send_btn">Send message</a>
                                 <span class="pull-right margintop20">* Please fill all required form fields, thanks!</span>
                             </p>
                         </div>
@@ -47,3 +47,29 @@ include('../includes/app.php');
 </section>
 
 <?php include('../includes/footer.php'); ?>
+
+<script type="text/javascript">
+
+    $('#send_btn').click(function (e) {
+        e.preventDefault();
+        var formData = $('#contactform').serialize();
+        $.ajax({
+            url: '../includes/handleForm.php',
+            type: "POST",
+            data: formData,
+            dataType: 'json',
+            complete: function (response) {
+                $("#contactform input[type!='hidden']").each(function(){
+                    $(this).val('');
+                });
+                
+                $('#confirmation').html(response.responseText);
+                $('#confirmation').show();
+            }
+        })
+    });
+
+</script>
+
+
+

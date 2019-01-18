@@ -1112,14 +1112,14 @@ form#contactform .validation {
   font-size:13px;
 }
 
-#sendmessage {
-  color: green;
-  border:1px solid green;
+#confirmation {
+  color: #fff;
   display:none;
   text-align:center;
   padding:15px;
   font-weight:600;
   margin-bottom:15px;
+  background-color: #45D7FA;
 }
 
 #errormessage {
@@ -1134,12 +1134,6 @@ form#contactform .validation {
 
 #sendmessage.show, #errormessage.show, .show {
 	display:block;
-}
-
-/* Google Map */
-#google-map {
-  height: 350px;
-  margin-bottom: 20px;
 }
 
 /* --- comment form ---- */
@@ -2809,4 +2803,18 @@ ul.the-icons {
 
 #pagination li.page-item {
     list-style: none;
+}
+
+.white-hover:hover {
+	color: #fff;
+}
+
+.intro-content p {
+    color: #fff;
+    font-size: 16px;
+}
+
+.emphasized {
+	font-weight: bold;
+	font-size: 18px;
 }

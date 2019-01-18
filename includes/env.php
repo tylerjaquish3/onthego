@@ -4,9 +4,17 @@
 	$username = "root";
 	$password = "";
 	$dbname = "onthego";
+	$dbport = "3307";
+
+	//ipage connection
+	// $servername = "didier83643499.ipagemysql.com";
+	// $username = "didier836";
+	// $password = "Baseball22!";
+	// $dbname = "onthego";
+	// $dbport = "3306";
 		
 	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname, '3307');
+	$conn = new mysqli($servername, $username, $password, $dbname, $dbport);
 	
 	// Check connection
 	if ($conn->connect_error) {

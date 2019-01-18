@@ -23,7 +23,7 @@
 require '../includes/functions.php'; 
 
 if (!isset($_SESSION["user_id"])) {
-    header('location:admin/login.php');
+    header('location:/admin/login.php');
 }
 ?>
 

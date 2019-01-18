@@ -3,10 +3,22 @@ session_start();
 
 include('adminHeader.php');
 
-// include('../includes/app.php');
-
 $photos = get('SELECT * FROM photos ORDER BY created_at DESC LIMIT 20');
 
+$message = [];
+if (isset($_GET) && count($_GET) > 0) {
+    $message = [
+        'type' => 'Error',
+        'msg' => 'There was an error uploading your photo(s).'
+    ];
+    if ($_GET['message'] == 'success') {
+        $message = [
+            'type' => 'Success',
+            'msg' => 'Photos uploaded and saved successfully!'
+        ];
+    } 
+}
+$message = json_encode($message);
 ?>
 
 <!-- page content -->
@@ -72,7 +84,17 @@ $photos = get('SELECT * FROM photos ORDER BY created_at DESC LIMIT 20');
     </div>
 </div>
 
+<?php include('adminFooter.php'); ?>
+
 <script>
+
+    $(document).ready(function(){
+        var message = <?php echo $message;?>;
+        console.log(message);
+        if (message.type && message.type != "") {
+            addAlertToPage(message.type.toLowerCase(), message.type, message.msg, 5);
+        }
+    });
     
     // Send form to controller
     $('#save_photos').on('click', function(e) {
