@@ -30,10 +30,7 @@ $totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
     <div class="container">
         <div class="row">
 
-            <div class="col-xs-12 col-md-4">
-                <?php include('../includes/sidebar.php'); ?>
-            </div>
-            <div class="col-xs-12 col-md-8">
+            <div class="col-xs-12 col-md-8 col-md-push-4">
 
                 <article class="single">
                     <div class="row">
@@ -55,8 +52,8 @@ $totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
 
                 <!-- author info -->
                 <div class="about-author span8">
-                    <a href="#" class="thumbnail align-left"><img src="img/avatar.png" alt="" /></a>
-                    <h5><strong><a href="#">We Would Love to Hear from You!</a></strong></h5>
+                    
+                    <h5><strong><i class="icon-envelope"></i> We Would Love to Hear from You!</strong></h5>
                     <p>Leave a comment below, or <a class="white-hover" href="/contact">send us a message</a>.</p>
                 </div>
 
@@ -90,6 +87,10 @@ $totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-xs-12 col-md-4 col-md-pull-8">
+                <?php include('../includes/sidebar.php'); ?>
             </div>
         </div>
     </div>

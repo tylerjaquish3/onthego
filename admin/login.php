@@ -11,6 +11,8 @@
 
     <title>On the Go | Admin</title>
     <link href="../css/full_sparkle.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
 
 </head>
 

@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>On the Go | Admin</title>
-    <!-- <link rel="icon" href="{{ asset("/images/favicon.ico") }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset("/images/favicon-152.png") }}"> -->
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
 
     <link href="/css/full_sparkle.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">

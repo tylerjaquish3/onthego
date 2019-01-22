@@ -65,7 +65,7 @@ $categoryPosts = mysqli_query($conn,$sql);
                                     <h3><a href="/blog?id=<?php echo $post['postId']; ?>"><?php echo $post['title']; ?></a></h3>
                                 </div>
 
-                                <img src="img/dummies/blog/img1.jpg" alt="" />
+                               <!--  <img src="img/dummies/blog/img1.jpg" alt="" /> -->
                             </div>
                             <div class="meta-post">
                                 <a href="#" class="author">By<br /><?php echo $post['user_name']; ?></a>
