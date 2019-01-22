@@ -84,19 +84,26 @@ $categoryPosts = mysqli_query($conn,$sql);
                 <?php
                 } ?>
 
-                <div id="pagination">
-                    <p>See more pages of blog posts</p>
-                    <ul class="pagination">
-                        <li><a href="?page=1<?php echo $existingUrl; ?>">First</a></li>
-                        <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
-                            <a href="<?php if($pageno <= 1){ echo "#"; } else { echo "?page=".($pageno - 1).$existingUrl; } ?>">Prev</a>
-                        </li>
-                        <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
-                            <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?page=".($pageno + 1).$existingUrl; } ?>">Next</a>
-                        </li>
-                        <li><a href="?page=<?php echo $total_pages.$existingUrl; ?>">Last</a></li>
-                    </ul>
-                </div>
+                <?php 
+                if($total_pages != 1) { ?>
+                    <div id="pagination">
+                        <ul class="pagination">
+                            <?php
+                            if($pageno > 1) { ?>
+                                <li><a href="?page=1<?php echo $existingUrl; ?>">First Page</a></li>
+                                <li><a href="<?php if($pageno <= 1){ echo "#"; } else { echo "?page=".($pageno - 1).$existingUrl; } ?>">Previous Page</a></li>
+                            <?php
+                            } ?>
+                            <?php 
+                            if($pageno < $total_pages){ ?>
+                                <li><a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?page=".($pageno + 1).$existingUrl; } ?>">Next Page</a></li>
+                                <li><a href="?page=<?php echo $total_pages.$existingUrl; ?>">Last Page</a></li>
+                            <?php 
+                            } ?>
+                        </ul>
+                    </div>
+                <?php
+                } ?>
             </div>
         </div>
     </div>

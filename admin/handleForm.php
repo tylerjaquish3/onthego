@@ -112,7 +112,6 @@ if(isset($_POST['ckCsrfToken'])) {
 	if (isset($_FILES)) {
 
 		$targetDir = "../img/uploaded/";
-		$imageNumber = 1;
 	
 		foreach($_FILES as $file) {
 			if ($file['name'] != '') {
@@ -120,19 +119,6 @@ if(isset($_POST['ckCsrfToken'])) {
 				$newFileName = round(microtime(true)).rand(1,100).'.'.end($temp);
 				$targetFile = $targetDir.$newFileName;
 				$return = uploadAttachment($targetFile, $file);
-
-				// Don't insert in DB unless upload was successful
-				// if ($return == "success") {
-				// 	$sql = "INSERT INTO photos (path, caption, is_active, created_at) VALUES ('$newFileName', '', 1, '$createdAt')";
-				//         if(mysqli_query($conn, $sql)){
-				//     	$result = ['type' => 'success', 'message' => 'Photos have been updated.'];
-				// 	} else {
-				// 		// dd(mysqli_error($conn));
-				// 		$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
-				// 	}
-				// }
-
-				$imageNumber++;
 			}
 		}
 	}

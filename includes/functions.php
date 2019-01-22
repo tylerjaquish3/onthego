@@ -1,7 +1,7 @@
 <?php
 
 date_default_timezone_set('America/Los_Angeles');
-//define('URL', 'https://onthegowithjando.com');
+// define('URL', 'http://onthegowithjando.com');
 define('URL', 'http://onthego.local');
 
 function getUser($id)
