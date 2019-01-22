@@ -14,7 +14,7 @@ if (isset($_GET) && count($_GET) > 0) {
     if ($_GET['message'] == 'success') {
         $message = [
             'type' => 'Success',
-            'msg' => 'Photos uploaded and saved successfully!'
+            'msg' => 'Photos saved successfully!'
         ];
     } 
 }
@@ -90,7 +90,6 @@ $message = json_encode($message);
 
     $(document).ready(function(){
         var message = <?php echo $message;?>;
-        console.log(message);
         if (message.type && message.type != "") {
             addAlertToPage(message.type.toLowerCase(), message.type, message.msg, 5);
         }
@@ -104,8 +103,8 @@ $message = json_encode($message);
             method: 'POST',
             dataType: 'json',
             data:  $("#editPhotoForm").serialize(),
-            success: function (data) {
-                addAlertToPage('success', 'Success', 'Photos were saved.', 5);
+            complete: function (data) {
+                window.location.href= '/admin/photos.php?message=success';
             }
         });
     });

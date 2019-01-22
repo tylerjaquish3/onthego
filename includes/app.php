@@ -13,11 +13,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- css -->
-    <link href="/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/css/bootstrap-responsive.css" rel="stylesheet" />
     <link href="/css/prettyPhoto.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet">
 
     <!-- Theme skin -->
     <link id="t-colors" href="/color/default.css" rel="stylesheet" />

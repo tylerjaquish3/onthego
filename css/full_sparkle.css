@@ -11896,8 +11896,8 @@ table.jambo_table {
   font-size: 15px;
   background-color: #f6f6f6; }
 
-.dataTables_length {
-  width: 100%; }
+/*.dataTables_length {
+  width: 100%; }*/
 
 .dataTables_wrapper .text--left .buttons {
   margin: 10px 0;

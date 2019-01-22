@@ -1635,9 +1635,9 @@ $(document).ready(function() {
     }).parent().addClass('active');
 
     // // recompute content when resizing
-    $(window).smartresize(function(){
-        setContentHeight();
-    });
+    // $(window).smartresize(function(){
+    //     setContentHeight();
+    // });
 
     setContentHeight();
 
@@ -1677,9 +1677,9 @@ $(document).ready(function() {
     });
 
     // Tooltip
-    $('[data-toggle="tooltip"]').tooltip({
-        container: 'body'
-    });
+    // $('[data-toggle="tooltip"]').tooltip({
+    //     container: 'body'
+    // });
     // /Tooltip
 
 

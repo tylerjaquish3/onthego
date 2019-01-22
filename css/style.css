@@ -134,8 +134,7 @@ img.img-polaroid {
 4. Header
 ==================================== */
 
-/* --- header -- */
-header{
+nav {
 	background: url(../img/header-pattern-150.png) repeat;
 	margin:0;
 	padding: 15px;
@@ -147,11 +146,16 @@ header .top {
 	padding:10px 0 10px;
 	margin:0 0 30px;
 	background: url(../img/top-pattern-150.png) repeat;
--webkit-box-shadow: 0 4px 4px -2px #222;
-   -moz-box-shadow: 0 4px 4px -2px #222;
-        box-shadow: 0 4px 4px -2px #222;
+	-webkit-box-shadow: 0 4px 4px -2px #222;
+   	-moz-box-shadow: 0 4px 4px -2px #222;
+    box-shadow: 0 4px 4px -2px #222;
 }
 
+.navbar {
+	margin-bottom: 0px;
+	border: none;
+	border-radius: 0px;
+}
 
 header .logo {
 	float:left;
@@ -160,17 +164,18 @@ header .logo {
 header .logo img {
 	margin-bottom:10px;
 }
-header .logo h1 {
-	color:#fdfdfd;
-	letter-spacing:-1px;
-	font-size:2.2em;
-	font-weight:900;
-	margin:0;
+nav .logo h1 {
+	color: #fdfdfd;
+	letter-spacing: -1px;
+	font-size: 2.2em;
+	font-weight: 900;
+	margin: 0;
 }
-header .logo h1 a {
+nav .logo h1 a {
 	color:#fdfdfd;
+	padding: 15px;
 }
-header .logo h1 a:hover {
+nav .logo h1 a:hover {
 	text-decoration:none;
 }
 /* --- top area --- */
@@ -195,7 +200,6 @@ ul.topmenu li a:hover {
 	text-decoration:none;
 }
 
-
 ul.social-network {
 	float:right;
 	list-style:none;
@@ -211,7 +215,6 @@ ul.social-network li a:hover {
   -o-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out;
 }
-
 
 /* --- menu --- */
 
@@ -2253,10 +2256,10 @@ a i.icon-bgdark:hover {
 	color:#fff;
 }
 
-[class^="icon-"],
+/*[class^="icon-"],
 [class*=" icon-"] {
 	color:#404040;
-}
+}*/
 
 a [class^="icon-"]:hover,a:hover [class^="icon-"],
 a [class*=" icon-"]:hover ,a:hover [class*=" icon-"]{

@@ -2,15 +2,25 @@
 
 $currentPage = 'Photos';
 include('../includes/app.php');
+include('../includes/env.php');
 
-$photos = get('SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC LIMIT 20');
+if (isset($_GET['page'])) {
+    $pageno = $_GET['page'];
+} else {
+    $pageno = 1;
+}
+$no_of_records_per_page = 16;
+$offset = ($pageno-1) * $no_of_records_per_page;
+$total_pages_sql = "SELECT COUNT(*) FROM photos WHERE is_active = 1";
+$result = mysqli_query($conn,$total_pages_sql);
+$total_rows = mysqli_fetch_array($result)[0];
+$total_pages = ceil($total_rows / $no_of_records_per_page);
 
-// var_dump($recentPosts);die;
-// while($row = $recentPosts) {
-//     echo $row['id'];           
-// }
-// die;
-// dd($recentPosts);
+$sql = "SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC LIMIT $offset, $no_of_records_per_page";
+$photos = mysqli_query($conn,$sql);
+
+$totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
+
 ?>
 
 <section id="content">
@@ -40,7 +50,17 @@ $photos = get('SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC
                 </div>
             </div>
             <div id="pagination">
-                {{ $photos->links() }}
+                <p>See more pages of photos</p>
+                <ul class="pagination">
+                    <li><a href="?page=1">First</a></li>
+                    <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
+                        <a href="<?php if($pageno <= 1){ echo "#"; } else { echo "?page=".($pageno - 1); } ?>">Prev</a>
+                    </li>
+                    <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
+                        <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?page=".($pageno + 1); } ?>">Next</a>
+                    </li>
+                    <li><a href="?page=<?php echo $total_pages; ?>">Last</a></li>
+                </ul>
             </div>
         </div>
 

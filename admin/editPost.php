@@ -76,15 +76,12 @@ if (isset($_GET['id'])) {
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <div class="document-editor">
-                                        <div class="document-editor__toolbar"></div>
-                                        <div class="document-editor__editable-container">
-                                            <div class="document-editor__editable">
-                                                <?php
-                                                if(isset($post)) {
-                                                    echo $post['content_html'];
-                                                } ?>
-                                            </div>
-                                        </div>
+                                        <textarea id="editor1">
+                                            <?php
+                                            if(isset($post)) {
+                                                echo $post['content_html'];
+                                            } ?>
+                                        </textarea>
                                     </div>
                                 </div>
                             </div>
@@ -109,27 +106,14 @@ if (isset($_GET['id'])) {
 include('adminFooter.php');
 ?>
 
-
 <script type="text/javascript">
 
-    var postId = <?php echo isset($post) ? json_encode($post['postId']) : 0; ?>;
-
-    var myEditor;
-    DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
-        cloudServices: {
-            // tokenUrl: 'https://example.com/cs-token-endpoint',
-            // uploadUrl: 'https://your-organization-id.cke-cs.com/easyimage/upload/'
-        }
-    })
-    .then( editor => {
-        const toolbarContainer = document.querySelector('.document-editor__toolbar');
-        toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-        window.editor = editor;
-        myEditor = editor; 
-    })
-    .catch( err => {
-        console.error( err );
+    CKEDITOR.replace('editor1', {
+        filebrowserBrowseUrl: '',
+        filebrowserUploadUrl: 'handleForm.php'
     });
+
+    var postId = <?php echo isset($post) ? json_encode($post['postId']) : 0; ?>;
 
     // User saved post as draft, set is_active = 0
     $('#save-post').on('click', function(e) {
@@ -144,29 +128,33 @@ include('adminFooter.php');
     // Send form to save function
     function submitForm(isActive)
     {
-        var isNew = true;
-        if (postId != 0) {
-            isNew = false;
-        }
-
-        $.ajax({
-            url: "handleForm.php",
-            method: "POST",
-            dataType: 'json',
-            data: {
-                action: 'save-post',
-                is_new: isNew,
-                post_id: postId,
-                title: $('#title').val(), 
-                content_html: myEditor.getData(),
-                category: $('#category').val(),
-                is_active: isActive
-            },
-            success: function (data) {
-                console.log(data);
-                window.location = '/admin/dashboard';
+        if ($('#title').val() == "") {
+            addAlertToPage('error', 'error', 'Please add a title', 5);
+        } else {
+            var isNew = true;
+            if (postId != 0) {
+                isNew = false;
             }
-        });
+
+            $.ajax({
+                url: "handleForm.php",
+                method: "POST",
+                dataType: 'json',
+                data: {
+                    action: 'save-post',
+                    is_new: isNew,
+                    post_id: postId,
+                    title: $('#title').val(), 
+                    content_html: CKEDITOR.instances.editor1.getData(),
+                    category: $('#category').val(),
+                    is_active: isActive
+                },
+                success: function (data) {
+                    // console.log(data);
+                    window.location = '/admin';
+                }
+            });
+        }
     }
 
 </script>

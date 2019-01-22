@@ -13,7 +13,10 @@
 <!-- Sparkle Combined Scripts -->
 <script src="/js/sparkle.js"></script>
 <script src="/js/dataTables.min.js"></script>
-<script src='https://cdn.ckeditor.com/ckeditor5/11.2.0/decoupled-document/ckeditor.js'></script>
+<script src='/js/ckeditor/ckeditor.js'></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 </body>
 </html>

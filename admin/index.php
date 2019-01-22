@@ -31,7 +31,7 @@ include('adminHeader.php');
             </div>
             <div class="x_content">
 
-                <table id="datatable-posts" class="table table-bordered table-striped table-responsive" width="100%">
+                <table id="datatable-posts" class="table table-bordered table-striped" width="100%">
                     <thead>
                         <th>Title</th>
                         <th>Category</th>
@@ -44,8 +44,7 @@ include('adminHeader.php');
                         $sql = "SELECT p.title, u.user_name, c.category_name, p.id, p.updated_at, p.is_active
                             FROM posts p 
                             JOIN users u on p.created_by = u.id 
-                            JOIN categories c on c.id = p.category_id 
-                            WHERE  p.is_active = 1
+                            JOIN categories c on c.id = p.category_id
                             ";
                         $posts = mysqli_query($conn, $sql);
                         if (mysqli_num_rows($posts) > 0) {

@@ -4,7 +4,7 @@ $currentPage = 'Blog';
 include('../includes/app.php');
 
 $recentPosts = get('SELECT * FROM posts WHERE is_active = 1 ORDER BY updated_at DESC LIMIT 5');
-$categories = get('SELECT c.id, COUNT(c.id) as categoryCount, c.category_name FROM posts p JOIN categories c ON c.id = p.category_id GROUP BY c.id');
+$categories = get('SELECT c.id, COUNT(c.id) as categoryCount, c.category_name FROM posts p JOIN categories c ON c.id = p.category_id WHERE p.is_active = 1 GROUP BY c.id');
 $whereCategory = '';
 
 if (isset($_GET['id'])) {
@@ -15,6 +15,8 @@ $postQuery = get('SELECT p.id as postId, title, content_html, p.updated_at, c.ca
 $post = mysqli_fetch_array($postQuery);
 
 $comments = get('SELECT * FROM comments WHERE post_id = '.$postId);
+
+$totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
 
 // var_dump($recentPosts);die;
 // while($row = $recentPosts) {
@@ -28,10 +30,10 @@ $comments = get('SELECT * FROM comments WHERE post_id = '.$postId);
     <div class="container">
         <div class="row">
 
-            <div class="span4">
+            <div class="col-xs-12 col-md-4">
                 <?php include('../includes/sidebar.php'); ?>
             </div>
-            <div class="span8">
+            <div class="col-xs-12 col-md-8">
 
                 <article class="single">
                     <div class="row">
@@ -80,10 +82,10 @@ $comments = get('SELECT * FROM comments WHERE post_id = '.$postId);
 
                     <div class="row">
                         <div class="span8">
-                            <input type="text" id="user_name" placeholder="* Enter your full name" />
+                            <input type="text" class="form-control" id="user_name" placeholder="* Enter your full name" />
                         </div>
                         <div class="span8 margintop10">
-                            <p><textarea id="comment_text" rows="12" class="input-block-level" placeholder="*Your comment here"></textarea></p>
+                            <p><textarea id="comment_text" rows="12" class="input-block-level form-control" placeholder="*Your comment here"></textarea></p>
                             <p><button class="btn btn-color margintop10" id="save_comment">Submit Comment</button></p>
                         </div>
                     </div>
@@ -112,7 +114,7 @@ $comments = get('SELECT * FROM comments WHERE post_id = '.$postId);
                 _token: '{{ csrf_token() }}'
             },
             success: function (data) {
-                console.log(data);
+                location.reload();
             }
         });
     });

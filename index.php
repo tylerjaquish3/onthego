@@ -2,24 +2,36 @@
 
 $currentPage = 'Blog';
 include('includes/app.php');
+include('includes/env.php');
 
 $recentPosts = get('SELECT * FROM posts WHERE is_active = 1 ORDER BY updated_at DESC LIMIT 5');
 $categories = get('SELECT c.id, COUNT(c.id) as categoryCount, c.category_name FROM posts p JOIN categories c ON c.id = p.category_id WHERE p.is_active = 1 GROUP BY c.id');
-$whereCategory = '';
+$whereCategory = $existingUrl = '';
 if (isset($_GET['category'])) {
     $whereCategory = 'AND category_id ='.$_GET['category'];
+    $existingUrl = '&category='.$_GET['category'];
 }
-$categoryPosts = get('SELECT p.id as postId, title, content_html, p.updated_at, c.category_name, u.user_name FROM posts p JOIN users u ON u.id = p.created_by JOIN categories c ON c.id = p.category_id WHERE p.is_active = 1 '.$whereCategory.' ORDER BY p.updated_at DESC');
 
+$totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
 $photos = get('SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC LIMIT 4');
 
-// var_dump($categoryPosts);die;
-// while($row = $recentPosts) {
-//     echo $row['id'];           
-// }
-// die;
-// dd($recentPosts);
+if (isset($_GET['page'])) {
+    $pageno = $_GET['page'];
+} else {
+    $pageno = 1;
+}
+$no_of_records_per_page = 5;
+$offset = ($pageno-1) * $no_of_records_per_page;
+$total_pages_sql = "SELECT COUNT(*) FROM posts WHERE is_active = 1 ".$whereCategory;
+$result = mysqli_query($conn,$total_pages_sql);
+$total_rows = mysqli_fetch_array($result)[0];
+$total_pages = ceil($total_rows / $no_of_records_per_page);
+
+$sql = "SELECT p.id as postId, title, content_html, p.updated_at, c.category_name, u.user_name FROM posts p JOIN users u ON u.id = p.created_by JOIN categories c ON c.id = p.category_id WHERE p.is_active = 1 ".$whereCategory." ORDER BY p.updated_at DESC LIMIT $offset, $no_of_records_per_page";
+$categoryPosts = mysqli_query($conn,$sql);
+
 ?>
+    
 
 <!-- section intro -->
 <section id="intro">
@@ -37,11 +49,11 @@ $photos = get('SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC
 <section id="content">
     <div class="container">
         <div class="row">
-            <div class="span4">
+            <div class="col-xs-12 col-md-4">
                 <?php include('includes/sidebar.php'); ?>
             </div>
 
-            <div class="span8">
+            <div class="col-xs-12 col-md-8">
 
                 <?php 
                 while($post = mysqli_fetch_array($categoryPosts)) { ?>
@@ -73,7 +85,17 @@ $photos = get('SELECT * FROM photos WHERE is_active = 1 ORDER BY created_at DESC
                 } ?>
 
                 <div id="pagination">
-                    {{ $categoryPosts->links() }}
+                    <p>See more pages of blog posts</p>
+                    <ul class="pagination">
+                        <li><a href="?page=1<?php echo $existingUrl; ?>">First</a></li>
+                        <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
+                            <a href="<?php if($pageno <= 1){ echo "#"; } else { echo "?page=".($pageno - 1).$existingUrl; } ?>">Prev</a>
+                        </li>
+                        <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
+                            <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?page=".($pageno + 1).$existingUrl; } ?>">Next</a>
+                        </li>
+                        <li><a href="?page=<?php echo $total_pages.$existingUrl; ?>">Last</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -85,7 +107,7 @@ if(mysqli_num_rows($photos) > 0) { ?>
     <section id="works">
         <div class="container">
             <div class="row">
-                <div class="span12">
+                <div class="col-xs-12">
                     <h3>
                         Photos
                         <a href="/photos" class="btn btn-color">View more <i class="icon-angle-right"></i></a>
@@ -96,10 +118,10 @@ if(mysqli_num_rows($photos) > 0) { ?>
 
                             <?php 
                             while($photo = mysqli_fetch_array($photos)) { ?>
-                                <div class="span3">
+                                <div class="col-xs-12 col-md-3">
                                     <div class="item">
                                         <a href="/img/uploaded/<?php echo $photo['path']; ?>" data-pretty="prettyPhoto[gallery1]" title="<?php echo $photo['caption']; ?>">
-                                            <img src="/img/uploaded/<?php echo $photo['path']; ?>" alt="">
+                                            <img src="/img/uploaded/<?php echo $photo['path']; ?>" width="100%">
                                         </a>
                                     </div>
                                 </div>

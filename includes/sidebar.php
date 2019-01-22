@@ -14,7 +14,7 @@
     <div class="widget">
         <h5 class="widgetheading">Categories</h5>
         <ul class="cat">
-            <li><i class="icon-angle-right"></i> <a href="/">All</a><span> ({{ $postCount }})</span></li>
+            <li><i class="icon-angle-right"></i> <a href="/">All</a><span> (<?php echo mysqli_num_rows($totalPosts); ?>)</span></li>
             <?php 
             while($category = mysqli_fetch_array($categories)) { ?>
                 <li>

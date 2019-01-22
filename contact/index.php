@@ -8,7 +8,7 @@ include('../includes/app.php');
 <section id="content">
     <div class="container">
         <div class="row">
-            <div class="span12">
+            <div class="col-xs-12 col-md-8">
                 <h4>We Would Love to Hear from You!</h4>
 
                 <form id="contactform" role="form" class="contactForm">
@@ -17,20 +17,20 @@ include('../includes/app.php');
                     <input type="hidden" name="action" value="send-message">
 
                     <div class="row">
-                        <div class="span4 field form-group">
-                            <input type="text" name="name" placeholder="* Enter your full name" />
+                        <div class="col-xs-12 col-md-6 field form-group">
+                            <input type="text" name="name" class="form-control" placeholder="* Enter your full name" />
                             <div class="validation"></div>
                         </div>
-                        <div class="span4 field form-group">
-                            <input type="text" name="email" placeholder="* Enter your email address" />
+                        <div class="col-xs-12 col-md-6 field form-group">
+                            <input type="text" name="email" class="form-control" placeholder="* Enter your email address" />
                             <div class="validation"></div>
                         </div>
-                        <div class="span8 margintop10 field form-group">
-                            <input type="text" name="subject" placeholder="Enter your subject" />
+                        <div class="col-xs-12 margintop10 field form-group">
+                            <input type="text" name="subject" class="form-control" placeholder="Enter your subject" />
                             <div class="validation"></div>
                         </div>
-                        <div class="span8 margintop10 field form-group">
-                            <textarea rows="12" name="message" class="input-block-level" placeholder="* Your message here..."></textarea>
+                        <div class="col-xs-12 margintop10 field form-group">
+                            <textarea rows="12" name="message" class="input-block-level form-control" placeholder="* Your message here..."></textarea>
                             <div class="validation"></div>
 
                             <p>
@@ -41,7 +41,9 @@ include('../includes/app.php');
                     </div>
                 </form>
             </div>
-
+            <div class="col-xs-12 col-md-4">
+                <img src="/img/cute-people.jpg">
+            </div>
         </div>
     </div>
 </section>

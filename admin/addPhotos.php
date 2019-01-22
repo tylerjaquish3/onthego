@@ -56,21 +56,3 @@ include('adminHeader.php');
         </div>
     </div>
 </div>
-
-<!-- <script>
-    
-    // Send form to controller
-    $('#upload_photos').on('click', function(e) {
-        
-        $.ajax({
-            url: "handleForm.php",
-            method: 'POST',
-            dataType: 'json',
-            data:  $("#addPhotosForm").serialize(),
-            success: function (data) {
-                addAlertToPage('success', 'Success', 'Photos were saved.', 5);
-            }
-        });
-    });
-
-</script> -->
