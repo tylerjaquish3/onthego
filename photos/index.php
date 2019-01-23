@@ -23,32 +23,43 @@ $totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
 
 ?>
 
-<section id="content">
+<section id="content" style="height: 100%">
     <div class="container">
         <div class="row">
-            <div class="span12">
-        
-                <div class="clearfix"></div>
-                <div class="row">
-                    <section id="projects">
-                        <ul id="thumbs" class="grid cs-style-3 portfolio">
+            <div class="span12" style="height: 100%">
 
-                            <?php 
-                            while($photo = mysqli_fetch_array($photos)) { ?>
-                                <li class="item-thumbs span3 design" data-id="id-0" data-type="web">
-                                    <div class="item">
-                                        <a href="/img/uploaded/<?php echo $photo['path']; ?>" data-pretty="prettyPhoto[gallery1]" title="<?php echo $photo['caption']; ?>">
-                                            <img src="/img/uploaded/<?php echo $photo['path']; ?>" alt="">
-                                        </a>
-                                    </div>
-                                </li>
-                            <?php 
-                            } ?>
+                <?php 
+                if (mysqli_num_rows($photos) > 0) { ?>
+                    <div class="row">
+                        <section id="projects">
+                            <ul id="thumbs" class="grid cs-style-3 portfolio">
 
-                        </ul>
-                    </section>
-                </div>
+                                <?php 
+                                while($photo = mysqli_fetch_array($photos)) { ?>
+                                    <li class="item-thumbs span3 design" data-id="id-0" data-type="web">
+                                        <div class="item">
+                                            <a href="/img/uploaded/<?php echo $photo['path']; ?>" data-pretty="prettyPhoto[gallery1]" title="<?php echo $photo['caption']; ?>">
+                                                <img src="/img/uploaded/<?php echo $photo['path']; ?>" alt="">
+                                            </a>
+                                        </div>
+                                    </li>
+                                <?php 
+                                } ?>
+
+                            </ul>
+                        </section>
+                    </div>
+                <?php
+                } else { ?>
+                    <div class="row">
+                        <section id="projects" class="text-center">
+                            <h3>We haven't added any photos yet, please check back soon!</h3><br /><br /><br /><br />
+                        </section>
+                    </div>
+                <?php 
+                } ?>
             </div>
+
             <?php 
             if($total_pages != 1) { ?>
                 <div id="pagination">

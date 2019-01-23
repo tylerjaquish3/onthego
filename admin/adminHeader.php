@@ -16,6 +16,7 @@
     <link href="/css/full_sparkle.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="/css/admin.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet">
     <script src="/js/jquery-full.js"></script>
 
 </head>
@@ -29,7 +30,7 @@ if (!isset($_SESSION["user_id"])) {
 ?>
 
 <body class="nav-md">
-    <div class="container body">
+    <div class="container body mobile-container">
         <div class="main_container">
 
             <div class="col-md-3 left_col">

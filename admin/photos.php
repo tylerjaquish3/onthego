@@ -36,21 +36,13 @@ $message = json_encode($message);
             <div class="x_title">
                 <h2>Blog Photos</h2>
 
-                <ul class="nav navbar-right panel_toolbox">
-                    <li>
-                        <a class="collapse-link" data-toggle="tooltip" data-placement="left" title="" data-original-title="Collapse Area">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </li>
-                </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <div class="container">
-                    <div class="row">
-                        <a id="save_photos" class="btn btn-success">Save Changes</a>
-                        <a href="/admin/addPhotos.php" class="btn btn-primary">Upload Photos</a>
-                    </div>
+                    
+                    <a id="save_photos" class="btn btn-success">Save Changes</a>
+                    <a href="/admin/addPhotos.php" class="btn btn-primary">Upload Photos</a>
 
                     <form id="editPhotoForm">
                         <input type="hidden" name="action" value="update-photos">

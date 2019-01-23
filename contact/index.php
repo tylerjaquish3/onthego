@@ -7,7 +7,7 @@ include('../includes/app.php');
 
 <section id="content">
     <div class="container">
-        <div class="row">
+        <div class="row form-row">
             <div class="col-xs-12 col-md-8">
                 <h4>We Would Love to Hear from You!</h4>
 
@@ -16,7 +16,7 @@ include('../includes/app.php');
                     <div id="confirmation" style="display: none;"></div>
                     <input type="hidden" name="action" value="send-message">
 
-                    <div class="row">
+                    <div class="row form-row">
                         <div class="col-xs-12 col-md-6 field form-group">
                             <input type="text" name="name" class="form-control" placeholder="* Enter your full name" />
                             <div class="validation"></div>
@@ -25,17 +25,18 @@ include('../includes/app.php');
                             <input type="text" name="email" class="form-control" placeholder="* Enter your email address" />
                             <div class="validation"></div>
                         </div>
-                        <div class="col-xs-12 margintop10 field form-group">
+                        <div class="col-xs-12 field form-group">
                             <input type="text" name="subject" class="form-control" placeholder="Enter your subject" />
                             <div class="validation"></div>
                         </div>
-                        <div class="col-xs-12 margintop10 field form-group">
+                        <div class="col-xs-12 field form-group">
                             <textarea rows="12" name="message" class="input-block-level form-control" placeholder="* Your message here..."></textarea>
                             <div class="validation"></div>
 
                             <p>
+                                <span class="pull-right margintop10">* Please fill all required form fields, thanks!</span>
                                 <a class="btn btn-color margintop10 pull-left" id="send_btn">Send message</a>
-                                <span class="pull-right margintop20">* Please fill all required form fields, thanks!</span>
+                                
                             </p>
                         </div>
                     </div>

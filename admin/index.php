@@ -20,14 +20,6 @@ include('adminHeader.php');
             <div class="x_title">
                 <h2>Blog Posts</h2>
                 <a href="editPost.php" class="btn btn-primary">New Post</a>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li>
-                        <a class="collapse-link" data-toggle="tooltip" data-placement="left" title="" data-original-title="Collapse Area">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
             </div>
             <div class="x_content">
 

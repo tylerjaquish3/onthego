@@ -15,11 +15,8 @@ if (isset($_GET['id'])) {
     $post = mysqli_fetch_array($postQuery);
 }
 
-// var_dump($post);
-
 ?>
 
-<!-- page content -->
 <div class="page-title">
     <div class="title_left">
         <h1>Posts</h1>
@@ -29,7 +26,7 @@ if (isset($_GET['id'])) {
 <div class="clearfix"></div>
 
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <?php
@@ -38,63 +35,59 @@ if (isset($_GET['id'])) {
                 } else {
                     echo '<h2>Create Post</h2>';
                 } ?>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                </ul>
+                
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div class="col-md-12 col-sm-12">
-                    <div class="x_panel">
+                <div class="x_panel">
 
-                        <form class="form-horizontal form-label-left" action="">
-                        
-                            <div class="form-group">
-                                <div class="col-sm-6 col-xs-12">
-                                    <input type="text" required class="form-control col-xs-12" placeholder="Title *" id="title" value="<?php echo isset($post) ? $post['title'] : ''; ?>">
-                                </div>
+                    <form class="form-horizontal form-label-left" action="">
+                    
+                        <div class="form-group">
+                            <div class="col-sm-6 col-xs-12">
+                                <input type="text" required class="form-control col-xs-12" placeholder="Title *" id="title" value="<?php echo isset($post) ? $post['title'] : ''; ?>">
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <div class="col-sm-6 col-xs-12">
-                                    <select name="category" required class="form-control col-xs-12" id="category">
+                        <div class="form-group">
+                            <div class="col-sm-6 col-xs-12">
+                                <select name="category" required class="form-control col-xs-12" id="category">
+                                    <?php
+                                    $categories = mysqli_query($conn,"SELECT * FROM categories");
+                                    if (mysqli_num_rows($categories) > 0) {
+                                        while($div = mysqli_fetch_array($categories)) {
+                                            if (isset($post) && $post['category_id'] == $div['id']) { ?>
+                                                <option selected="selected" value="<?php echo $post['category_id']; ?>"><?php echo $div['category_name']; ?></option>
+                                            <?php } else { ?>
+                                                <option value="<?php echo $div['id']; ?>"><?php echo $div['category_name']; ?></option>
+                                            <?php }
+                                        }
+                                    } ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="document-editor">
+                                    <textarea id="editor1">
                                         <?php
-                                        $categories = mysqli_query($conn,"SELECT * FROM categories");
-                                        if (mysqli_num_rows($categories) > 0) {
-                                            while($div = mysqli_fetch_array($categories)) {
-                                                if (isset($post) && $post['category_id'] == $div['id']) { ?>
-                                                    <option selected="selected" value="<?php echo $post['category_id']; ?>"><?php echo $div['category_name']; ?></option>
-                                                <?php } else { ?>
-                                                    <option value="<?php echo $div['id']; ?>"><?php echo $div['category_name']; ?></option>
-                                                <?php }
-                                            }
+                                        if(isset($post)) {
+                                            echo $post['content_html'];
                                         } ?>
-                                    </select>
+                                    </textarea>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <div class="col-xs-12">
-                                    <div class="document-editor">
-                                        <textarea id="editor1">
-                                            <?php
-                                            if(isset($post)) {
-                                                echo $post['content_html'];
-                                            } ?>
-                                        </textarea>
-                                    </div>
-                                </div>
+                        <div class="form-group buttons-down">
+                            <div class="col-md-6 col-xs-12 col-md-offset-3">
+                                <a href="/admin" class="btn btn-warning">Cancel</a>
+                                <a class="btn btn-primary" id="save-post">Save as Draft</a>
+                                <a class="btn btn-success" id="publish-post">Publish</a>
                             </div>
-
-                            <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <a href="/admin" class="btn btn-warning">Cancel</a>
-                                    <a class="btn btn-primary" id="save-post">Save as Draft</a>
-                                    <a class="btn btn-success" id="publish-post">Publish</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

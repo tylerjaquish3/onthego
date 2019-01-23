@@ -4,7 +4,7 @@
                 <div class="span6">
                     <div class="widget">
                         <div class="footer_logo">
-                            <h3><a href="/"><i class="icon-globe"></i> On the Go with J and O</a></h3>
+                            <h3><a href="/"><i class="icon-globe"></i> On the Go with J+O</a></h3>
                         </div>
                         Thank you for showing interest in our blog!
                         <p><i class="icon-envelope-alt"></i> <a href="/contact">Send us a Message</a></p>
