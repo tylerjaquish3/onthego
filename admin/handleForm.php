@@ -3,30 +3,42 @@ session_start();
 
 include '../includes/env.php';
 include '../includes/functions.php';
-// var_dump($_POST);
-// var_dump($_FILES);
-// echo "<br><hr><br>";
+var_dump($_POST);
+var_dump($_FILES);
+echo "<br><hr><br>";
 
 if (isset($_POST['action']) && $_POST['action'] == 'save-post') {
 
-	$isNew = $_POST['is_new'] == "true" ? true : false;
+	$isNew = $_POST['is_new'];
 	$postId = $_POST['post_id'];
-	$title = $_POST['title'];
-	$contentHtml = escape($_POST['content_html']);
+	$title = escape($_POST['title']);
+	$contentHtml = htmlentities($_POST['content_html']);
 	$categoryId = $_POST['category'];
-	$isActive = $_POST['is_active'];
+	$isActive = isset($_POST['publish-post']) ? 1 : 0;
 	$createdBy = $_SESSION["user_id"];
 	$updatedAt = date('Y-m-d H:i:s');
 
+	// First handle header image
+	$targetDir = "../img/uploaded/";
+	if (isset($_FILES)) {
+
+		if ($_FILES['header_image']['name'] != '') {
+			$temp = explode(".", $_FILES['header_image']["name"]); 
+			$newFileName = round(microtime(true)).rand(1,100).'.'.end($temp);
+			$targetFile = $targetDir.$newFileName;
+			$return = uploadAttachment($targetFile, $_FILES['header_image']);
+		}
+	}
+
 	// If post is a new one, insert
 	if ($isNew) {
-		$sql = "INSERT INTO posts (title, content_html, category_id, is_active, created_by, updated_at) VALUES ('$title', '$contentHtml', $categoryId, $isActive, $createdBy, '$updatedAt')";
+		$sql = "INSERT INTO posts (title, header_image, content_html, category_id, is_active, created_by, updated_at) VALUES ('$title', '$newFileName', '$contentHtml', $categoryId, $isActive, $createdBy, '$updatedAt')";
 	} else {
 		// Post already exists, update
 		$sql = "UPDATE posts SET title='$title', content_html='$contentHtml', category_id=$categoryId, is_active=$isActive, created_by=$createdBy, updated_at='$updatedAt' WHERE id = ".$postId;
 	}
 
-	// dd($sql);
+	dd($sql);
 
 	if(mysqli_query($conn, $sql)){
 		if ($isNew && $isActive) {
@@ -44,6 +56,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'save-post') {
 	}
 
     echo json_encode($result);
+    // header("Location: ".URL."/admin/index.php?message=".$result['type']);
     die;
 }
 

@@ -1414,8 +1414,6 @@ h4.heading strong {
 
 }
 
-
-
 aside .widgetheading {
 	position: relative;
 	text-transform:none;
@@ -1577,7 +1575,7 @@ article a.btn.btn-color i {
 	font-weight:600;
 	padding:20px 0;
 	color: #f7f7f7;
-	background: #333;
+	background: #45D7FA;
 	display: inline-block;
 	border-radius: 1000px !important;
 	-moz-border-radius: 1000px !important;
@@ -1773,6 +1771,10 @@ box-shadow:inset 1px 0 0 0 rgba(0,0,0,.01);
 
 aside .widget {
 	margin-bottom:40px;
+	background-color: #45D7FA;
+    padding: 10px;
+    color: #fff;
+    border-radius: 5px;
 }
 
 
@@ -1792,7 +1794,7 @@ ul.contact-info li label {
 }
 
 ul.cat li a, ul.folio-detail li a{
-	color:#656565;
+	color:#fff;
 	text-decoration:none;
 }
 
@@ -1802,6 +1804,7 @@ ul.folio-detail li label {
 
 ul.cat li a:hover, ul.folio-detail li a:hover{
 	text-decoration:none;
+	color:#000;
 }
 
 ul.folio-detail li label{

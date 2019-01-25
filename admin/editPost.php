@@ -41,17 +41,28 @@ if (isset($_GET['id'])) {
             <div class="x_content">
                 <div class="x_panel">
 
-                    <form class="form-horizontal form-label-left" action="">
+                    <form class="form-horizontal form-label-left" action="handleForm.php" enctype="multipart/form-data" method="POST">
                     
+                        <input type="hidden" name="action" value="save-post">
+                        <?php
+                        if( isset($post)) {
+                            echo '<input type="hidden" name="is_new" value="0">';
+                            echo '<input type="hidden" name="post_id" value="'.$postId.'">';
+                        } else {
+                            echo '<input type="hidden" name="is_new" value="1">';
+                            echo '<input type="hidden" name="post_id" value="0">';
+                        } ?>
+
                         <div class="form-group">
                             <div class="col-sm-6 col-xs-12">
-                                <input type="text" required class="form-control col-xs-12" placeholder="Title *" id="title" value="<?php echo isset($post) ? $post['title'] : ''; ?>">
+                                <input type="text" required class="form-control col-xs-12" placeholder="Title *" name="title" value="<?php echo isset($post) ? $post['title'] : ''; ?>">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-6 col-xs-12">
                                 <select name="category" required class="form-control col-xs-12" id="category">
+                                    <option value="0">Category</option>
                                     <?php
                                     $categories = mysqli_query($conn,"SELECT * FROM categories");
                                     if (mysqli_num_rows($categories) > 0) {
@@ -68,9 +79,16 @@ if (isset($_GET['id'])) {
                         </div>
 
                         <div class="form-group">
+                            <div class="col-sm-6 col-xs-12">
+                                Header Image 
+                                <input type="file" class="form-control-file" name="header_image">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <div class="col-xs-12">
                                 <div class="document-editor">
-                                    <textarea id="editor1">
+                                    <textarea name="content_html" id="editor1">
                                         <?php
                                         if(isset($post)) {
                                             echo $post['content_html'];
@@ -83,8 +101,8 @@ if (isset($_GET['id'])) {
                         <div class="form-group buttons-down">
                             <div class="col-md-6 col-xs-12 col-md-offset-3">
                                 <a href="/admin" class="btn btn-warning">Cancel</a>
-                                <a class="btn btn-primary" id="save-post">Save as Draft</a>
-                                <a class="btn btn-success" id="publish-post">Publish</a>
+                                <button type="submit" class="btn btn-primary" name="save-draft">Save as Draft</button>
+                                <button type="submit" class="btn btn-success" name="publish-post">Publish</button>
                             </div>
                         </div>
                     </form>
@@ -109,45 +127,46 @@ include('adminFooter.php');
     var postId = <?php echo isset($post) ? json_encode($post['postId']) : 0; ?>;
 
     // User saved post as draft, set is_active = 0
-    $('#save-post').on('click', function(e) {
-        submitForm(0);
-    });
+    // $('#save-post').on('click', function(e) {
+    //     submitForm(0);
+    // });
 
-    // User published post, set is_active = 1
-    $('#publish-post').on('click', function(e) {
-        submitForm(1);
-    });
+    // // User published post, set is_active = 1
+    // $('#publish-post').on('click', function(e) {
+    //     submitForm(1);
+    // });
 
-    // Send form to save function
-    function submitForm(isActive)
-    {
-        if ($('#title').val() == "") {
-            addAlertToPage('error', 'error', 'Please add a title', 5);
-        } else {
-            var isNew = true;
-            if (postId != 0) {
-                isNew = false;
-            }
+    // // Send form to save function
+    // function submitForm(isActive)
+    // {
+    //     if ($('#title').val() == "") {
+    //         addAlertToPage('error', 'error', 'Please add a title', 5);
+    //     } else {
+    //         var isNew = true;
+    //         if (postId != 0) {
+    //             isNew = false;
+    //         }
 
-            $.ajax({
-                url: "handleForm.php",
-                method: "POST",
-                dataType: 'json',
-                data: {
-                    action: 'save-post',
-                    is_new: isNew,
-                    post_id: postId,
-                    title: $('#title').val(), 
-                    content_html: CKEDITOR.instances.editor1.getData(),
-                    category: $('#category').val(),
-                    is_active: isActive
-                },
-                success: function (data) {
-                    // console.log(data);
-                    window.location = '/admin';
-                }
-            });
-        }
-    }
+    //         $.ajax({
+    //             url: "handleForm.php",
+    //             method: "POST",
+    //             dataType: 'json',
+    //             data: {
+    //                 action: 'save-post',
+    //                 is_new: isNew,
+    //                 post_id: postId,
+    //                 title: $('#title').val(), 
+    //                 content_html: CKEDITOR.instances.editor1.getData(),
+    //                 category: $('#category').val(),
+    //                 is_active: isActive,
+    //                 header_image: JSON.stringify($('#header_image').prop('files'))
+    //             },
+    //             success: function (data) {
+    //                 // console.log(data);
+    //                 window.location = '/admin';
+    //             }
+    //         });
+    //     }
+    // }
 
 </script>

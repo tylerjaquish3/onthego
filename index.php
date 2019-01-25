@@ -27,7 +27,7 @@ $result = mysqli_query($conn,$total_pages_sql);
 $total_rows = mysqli_fetch_array($result)[0];
 $total_pages = ceil($total_rows / $no_of_records_per_page);
 
-$sql = "SELECT p.id as postId, title, content_html, p.updated_at, c.category_name, u.user_name FROM posts p JOIN users u ON u.id = p.created_by JOIN categories c ON c.id = p.category_id WHERE p.is_active = 1 ".$whereCategory." ORDER BY p.updated_at DESC LIMIT $offset, $no_of_records_per_page";
+$sql = "SELECT p.id as postId, title, header_image, content_html, p.updated_at, c.category_name, u.user_name FROM posts p JOIN users u ON u.id = p.created_by JOIN categories c ON c.id = p.category_id WHERE p.is_active = 1 ".$whereCategory." ORDER BY p.updated_at DESC LIMIT $offset, $no_of_records_per_page";
 $categoryPosts = mysqli_query($conn,$sql);
 
 ?>
@@ -65,7 +65,11 @@ $categoryPosts = mysqli_query($conn,$sql);
                                     <h3><a href="/blog?id=<?php echo $post['postId']; ?>"><?php echo $post['title']; ?></a></h3>
                                 </div>
 
-                               <!--  <img src="img/dummies/blog/img1.jpg" alt="" /> -->
+                                <?php 
+                                if ($post['header_image']) { ?>
+                                    <img src="img/uploaded/<?php echo $post['header_image']; ?>" />
+                                <?php
+                                } ?>
                             </div>
                             <div class="meta-post">
                                 <a href="#" class="author">By<br /><?php echo $post['user_name']; ?></a>

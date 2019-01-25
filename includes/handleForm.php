@@ -34,6 +34,10 @@ if (isset($_POST) && $_POST['action'] == 'send-message') {
     $subject = trim(stripslashes($_POST['subject'])); 
     $message = trim(stripslashes($_POST['message'])); 
 
+    if ($subject == "") {
+        $subject = "New message from your blog";
+    }
+
     // $createdAt = date('Y-m-d H:i:s');
 
     // $sql = "INSERT INTO messages (user_name, message_text, subject, status, created_at) VALUES ('$name', '$message', '$subject', 'New', '$createdAt')";
@@ -45,7 +49,7 @@ if (isset($_POST) && $_POST['action'] == 'send-message') {
         $to = 'tylerjaquish@gmail.com';
         $result = 'Unable to send email in dev.';
     } else {
-        $to = 'didier836@gmail.com';
+        $to = 'didier836@hotmail.com';
     
         $headers  = "From: " . $name . ' <' . $email . '>' . "\r\n";
         $headers .= "Reply-To: ". $email . "\r\n";
