@@ -3,20 +3,21 @@ session_start();
 
 include '../includes/env.php';
 include '../includes/functions.php';
-var_dump($_POST);
-var_dump($_FILES);
-echo "<br><hr><br>";
+// var_dump($_POST);
+// var_dump($_FILES);
+// echo "<br><hr><br>";
 
 if (isset($_POST['action']) && $_POST['action'] == 'save-post') {
 
 	$isNew = $_POST['is_new'];
 	$postId = $_POST['post_id'];
 	$title = escape($_POST['title']);
-	$contentHtml = htmlentities($_POST['content_html']);
+	$contentHtml = escape($_POST['content_html']);
 	$categoryId = $_POST['category'];
 	$isActive = isset($_POST['publish-post']) ? 1 : 0;
 	$createdBy = $_SESSION["user_id"];
 	$updatedAt = date('Y-m-d H:i:s');
+	$newFileName = isset($_POST['header_image']) ? $_POST['header_image'] : "";
 
 	// First handle header image
 	$targetDir = "../img/uploaded/";
@@ -35,10 +36,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'save-post') {
 		$sql = "INSERT INTO posts (title, header_image, content_html, category_id, is_active, created_by, updated_at) VALUES ('$title', '$newFileName', '$contentHtml', $categoryId, $isActive, $createdBy, '$updatedAt')";
 	} else {
 		// Post already exists, update
-		$sql = "UPDATE posts SET title='$title', content_html='$contentHtml', category_id=$categoryId, is_active=$isActive, created_by=$createdBy, updated_at='$updatedAt' WHERE id = ".$postId;
+		$sql = "UPDATE posts SET title='$title', header_image='$newFileName', content_html='$contentHtml', category_id=$categoryId, is_active=$isActive, created_by=$createdBy, updated_at='$updatedAt' WHERE id = ".$postId;
 	}
 
-	dd($sql);
+	// dd($sql);
 
 	if(mysqli_query($conn, $sql)){
 		if ($isNew && $isActive) {
@@ -55,8 +56,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'save-post') {
 		$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
 	}
 
-    echo json_encode($result);
-    // header("Location: ".URL."/admin/index.php?message=".$result['type']);
+    // echo json_encode($result);
+    header("Location: ".URL."/admin/index.php?message=".$result['type']);
     die;
 }
 

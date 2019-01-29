@@ -10,7 +10,7 @@ $whereCategory = '';
 if (isset($_GET['id'])) {
     $postId = $_GET['id'];
 }
-$postQuery = get('SELECT p.id as postId, title, content_html, p.updated_at, c.category_name, u.user_name FROM posts p JOIN users u ON u.id = p.created_by JOIN categories c ON c.id = p.category_id WHERE p.id = '.$postId);
+$postQuery = get('SELECT p.id as postId, title, header_image, content_html, p.updated_at, c.category_name, u.user_name FROM posts p JOIN users u ON u.id = p.created_by JOIN categories c ON c.id = p.category_id WHERE p.id = '.$postId);
 
 $post = mysqli_fetch_array($postQuery);
 
@@ -27,7 +27,7 @@ $totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
 ?>
 
 <section id="content">
-    <div class="container">
+    <div class="container mobile-container">
         <div class="row">
 
             <div class="col-xs-12 col-md-8 col-md-push-4">
@@ -39,7 +39,11 @@ $totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
                                 <div class="post-heading">
                                     <h3><?php echo $post['title']; ?></h3>
                                 </div>
-                                <img src="img/dummies/blog/img1.jpg" alt="" />
+                                <?php
+                                if ($post['header_image'] && $post['header_image'] != '') { ?>
+                                    <div class="center-cropped" style="background-image: url('/img/uploaded/<?php echo $post['header_image']; ?>')" alt="" />
+                                <?php
+                                } ?>
                             </div>
                             <div class="meta-post">
                                 <a href="#" class="author">By<br /> <?php echo $post['user_name']; ?></a>
@@ -51,8 +55,7 @@ $totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
                 </article>
 
                 <!-- author info -->
-                <div class="about-author span8">
-                    
+                <div class="about-author col-xs-12">
                     <h5><strong><i class="icon-envelope"></i> We Would Love to Hear from You!</strong></h5>
                     <p>Leave a comment below, or <a class="white-hover" href="/contact">send us a message</a>.</p>
                 </div>
@@ -77,15 +80,13 @@ $totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
                     <div class="marginbot30"></div>
                     <h4>Leave your comment</h4>
 
-                    <div class="row">
-                        <div class="span8">
-                            <input type="text" class="form-control" id="user_name" placeholder="* Enter your full name" />
-                        </div>
-                        <div class="span8 margintop10">
-                            <p><textarea id="comment_text" rows="12" class="input-block-level form-control" placeholder="*Your comment here"></textarea></p>
-                            <p><button class="btn btn-color margintop10" id="save_comment">Submit Comment</button></p>
-                        </div>
+                    <input type="text" class="form-control" id="user_name" placeholder="* Enter your full name" />
+                
+                    <div class="margintop10 marginbot30">
+                        <p><textarea id="comment_text" rows="12" class="input-block-level form-control" placeholder="*Your comment here"></textarea></p>
+                        <p><button class="btn btn-color margintop10" id="save_comment">Submit Comment</button></p>
                     </div>
+
                 </div>
             </div>
 

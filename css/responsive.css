@@ -39,6 +39,11 @@
 	div#datatable-posts_filter {
 	    width: 318px;
 	}
+
+	.mobile-container {
+		padding-right: 15px;
+		padding-left: 0px;
+	}
 }
 
 @media only screen and (max-width: 992px) {

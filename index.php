@@ -47,7 +47,7 @@ $categoryPosts = mysqli_query($conn,$sql);
 <!-- /section intro -->
 
 <section id="content">
-    <div class="container">
+    <div class="container mobile-container">
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <?php include('includes/sidebar.php'); ?>
@@ -65,16 +65,16 @@ $categoryPosts = mysqli_query($conn,$sql);
                                     <h3><a href="/blog?id=<?php echo $post['postId']; ?>"><?php echo $post['title']; ?></a></h3>
                                 </div>
 
-                                <?php 
-                                if ($post['header_image']) { ?>
-                                    <img src="img/uploaded/<?php echo $post['header_image']; ?>" />
+                                <?php
+                                if ($post['header_image'] && $post['header_image'] != '') { ?>
+                                    <div class="center-cropped" style="background-image: url('/img/uploaded/<?php echo $post['header_image']; ?>')" alt="" />
                                 <?php
                                 } ?>
                             </div>
                             <div class="meta-post">
                                 <a href="#" class="author">By<br /><?php echo $post['user_name']; ?></a>
                                 <a href="#" class="date"><?php echo date('j M', strtotime($post['updated_at'])); ?><br /><?php echo date('Y', strtotime($post['updated_at'])); ?></a>
-                                <br /><br /><p>Category: <?php echo $post['category_name']; ?></p>
+                                <br /><br /><p class="category">Category: <?php echo $post['category_name']; ?></p>
                             </div>
                             <div class="post-entry">
                                 <p>
