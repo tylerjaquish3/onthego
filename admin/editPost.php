@@ -5,7 +5,7 @@ session_start();
 include('adminHeader.php');
 
 if (!isset($_SESSION["user_id"])) {
-    header('location:/admin/login.php');
+    header('location: '.URL.'/admin/login.php');
 }
 
 if (isset($_GET['id'])) {
@@ -44,6 +44,7 @@ if (isset($_GET['id'])) {
                     <form class="form-horizontal form-label-left" action="handleForm.php" enctype="multipart/form-data" method="POST">
                     
                         <input type="hidden" name="action" value="save-post">
+                        <input type="hidden" name="user" value="<?php echo $_SESSION['user_id']; ?>">
                         <?php
                         if( isset($post)) {
                             echo '<input type="hidden" name="is_new" value="0">';
@@ -53,6 +54,7 @@ if (isset($_GET['id'])) {
                             echo '<input type="hidden" name="is_new" value="1">';
                             echo '<input type="hidden" name="post_id" value="0">';
                         } ?>
+
 
                         <div class="row">
                             <div class="col-xs-12 col-md-4">

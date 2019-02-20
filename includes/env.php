@@ -24,4 +24,9 @@
 	if (!defined('IS_DEV')) {
 		define('IS_DEV', true);
 	}
+
+	if (!defined('URL')) {
+		// define('URL', 'http://onthegowithjando.com');
+		define('URL', 'http://onthego.local');
+	}
 ?>

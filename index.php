@@ -36,11 +36,11 @@ $categoryPosts = mysqli_query($conn,$sql);
 <!-- section intro -->
 <section id="intro">
     <div class="intro-content">
-        <h2>Welcome to On the Go with J+O!</h2>
+        <h2>welcome!</h2>
         <div class="container">
-            <p><span class="emphasized"></span> First let us introduce ourselves as Justin and Oksana Didier, the crazy couple that decided to quit their jobs in search of <u>something more</u>! We invite you to join us on our adventure as we share our experiences, discoveries, and growth through this digital journal. Our hope is to bring joy into the lives of our followers. We would love to hear from you and invite you to send us a message!
-            <br />
-            <a href="#content" class="btn-get-started scrollto">Start Reading</a>
+            <p><span class="emphasized"></span> we're so glad you stopped by! hope you enjoy following along as we share photos, stories & thoughts from our WeQuitOurJobsForAYear Adventure. come visit again soon! <br />xoxo, j&o
+            <!-- <br />
+            <a href="#content" class="btn-get-started scrollto">Start Reading</a> -->
         </div>
     </div>
 </section>

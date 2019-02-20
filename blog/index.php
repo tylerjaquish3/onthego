@@ -10,20 +10,20 @@ $whereCategory = '';
 if (isset($_GET['id'])) {
     $postId = $_GET['id'];
 }
-$postQuery = get('SELECT p.id as postId, title, header_image, content_html, p.updated_at, c.category_name, u.user_name FROM posts p JOIN users u ON u.id = p.created_by JOIN categories c ON c.id = p.category_id WHERE p.id = '.$postId);
 
-$post = mysqli_fetch_array($postQuery);
+$sql = $conn->prepare("SELECT p.id as postId, title, header_image, content_html, p.updated_at, c.category_name, u.user_name FROM posts p JOIN users u ON u.id = p.created_by JOIN categories c ON c.id = p.category_id WHERE p.id = ?");
+$sql->bind_param('i', $postId);
+$sql->execute();
+$result = $sql->get_result();
+$post = $result->fetch_assoc();
 
-$comments = get('SELECT * FROM comments WHERE post_id = '.$postId);
+$sql = $conn->prepare("SELECT * FROM comments WHERE post_id = ?");
+$sql->bind_param('i', $postId);
+$sql->execute();
+$comments = $sql->get_result();
 
 $totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
 
-// var_dump($recentPosts);die;
-// while($row = $recentPosts) {
-//     echo $row['id'];           
-// }
-// die;
-// dd($recentPosts);
 ?>
 
 <section id="content">
@@ -84,6 +84,7 @@ $totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
                 
                     <div class="margintop10 marginbot30">
                         <p><textarea id="comment_text" rows="12" class="input-block-level form-control" placeholder="*Your comment here"></textarea></p>
+                        <span id="error" style="display:none; color: red;">Comment is required</span>
                         <p><button class="btn btn-color margintop10" id="save_comment">Submit Comment</button></p>
                     </div>
 
@@ -104,21 +105,27 @@ $totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
     var postId = "<?php echo $post['postId']; ?>"; 
 
     $('#save_comment').on('click', function(e) {
-        $.ajax({
-            url: '../includes/handleForm.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                action: 'save-comment',
-                user_name: $('#user_name').val(), 
-                comment_text: $('#comment_text').val(),
-                post_id: postId,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function (data) {
-                location.reload();
-            }
-        });
+        $('#error').hide();
+
+        if ($('#comment_text').val()) { 
+            $.ajax({
+                url: '../includes/handleForm.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    action: 'save-comment',
+                    user_name: $('#user_name').val(), 
+                    comment_text: $('#comment_text').val(),
+                    post_id: postId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        } else {
+            $('#error').show();
+        }
     });
 
 </script>

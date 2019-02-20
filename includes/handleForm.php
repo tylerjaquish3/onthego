@@ -11,15 +11,16 @@ if (isset($_POST) && $_POST['action'] == 'save-comment') {
 	$commentText = escape($_POST['comment_text']);
 	$userName = $_POST['user_name'];
 	$createdAt = date('Y-m-d H:i:s');
+    $active = 1;
 
-	$sql = "INSERT INTO comments (post_id, comment_text, user_name, is_active, created_at) VALUES ($postId, '$commentText', '$userName', 1, '$createdAt')";
+    $sql = $conn->prepare("INSERT INTO comments (post_id, comment_text, user_name, is_active, created_at)  VALUES (?,?,?,?,?)");
+    $sql->bind_param('issis', $postId, $commentText, $userName, $active, $createdAt);
+    $succeeded = $sql->execute();
 
-	// dd($sql);
-
-	if(mysqli_query($conn, $sql)){
+	if($succeeded){
 		$result = ['type' => 'success', 'message' => 'Comment has been saved.'];
 	} else {
-		dd(mysqli_error($conn));
+		// dd(mysqli_error($conn));
 		$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
 	}
 

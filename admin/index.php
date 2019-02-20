@@ -30,6 +30,7 @@ include('adminHeader.php');
                         <th>Status</th>
                         <th>Created By</th>
                         <th>Last Updated</th>
+                        <th>Delete</th>
                     </thead>
                     <tbody>
                         <?php 
@@ -51,6 +52,7 @@ include('adminHeader.php');
                                     </td>
                                     <td><?php echo $post['user_name']; ?></td>
                                     <td><?php echo $post['updated_at']; ?></td>
+                                    <td><a onclick="deletePost(<?php echo $post['id']; ?>);"><i class="fa fa-trash"></i></a></td>
                                 </tr>
                             <?php 
                             }
@@ -72,6 +74,27 @@ include('adminHeader.php');
         });
 
     });
+
+    function deletePost(id)
+    {
+        var r = confirm('Are you sure you want to delete this post? This cannot be undone.');
+
+        if (r == true) {
+            $.ajax({
+                url: 'handleForm.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    action: 'delete-post',
+                    post_id: id, 
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        } 
+    }
 </script>
 
 

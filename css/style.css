@@ -348,18 +348,16 @@ ul.nav li.dropdown ul li i {
 }
 
 .intro-content  h2 {
+  font: 400 150px/1.3 'Arizonia', Helvetica, sans-serif;
   color: #fff;
-  margin-bottom: 30px;
-  font-size: 64px;
-  font-weight: 700;
 }
 
-.intro-content  h3 {
+/*.intro-content  h3 {
   color: #fff;
   margin-bottom: 30px;
   font-size: 26px;
   font-weight: 500;
-}
+}*/
 
 @media (max-width: 767px) {
 	#intro {

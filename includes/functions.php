@@ -1,8 +1,8 @@
 <?php
 
 date_default_timezone_set('America/Los_Angeles');
-// define('URL', 'http://onthegowithjando.com');
-define('URL', 'http://onthego.local');
+
+include 'env.php';
 
 function getUser($id)
 {
@@ -41,6 +41,7 @@ function image_fix_orientation($filename) {
 function get(string $sql)
 {
 	include('env.php');
+
 	$result = mysqli_query($conn, $sql);
 
 	return $result;

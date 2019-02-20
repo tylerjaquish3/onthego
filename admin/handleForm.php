@@ -15,7 +15,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'save-post') {
 	$contentHtml = escape($_POST['content_html']);
 	$categoryId = $_POST['category'];
 	$isActive = isset($_POST['publish-post']) ? 1 : 0;
-	$createdBy = $_SESSION["user_id"];
+	$createdBy = $_POST["user"];
 	$updatedAt = date('Y-m-d H:i:s');
 	$newFileName = isset($_POST['header_image']) ? $_POST['header_image'] : "";
 
@@ -52,7 +52,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'save-post') {
 			$result = ['type' => 'success', 'message' => 'Post has been updated and saved as draft.'];
 		}
 	} else {
-		// dd(mysqli_error($conn));
+		dd(mysqli_error($conn));
 		$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
 	}
 
@@ -144,6 +144,21 @@ if(isset($_POST['ckCsrfToken'])) {
 		'filename' => $newFileName,
 		'url' => $fileUrl
 	];
+
+	echo json_encode($result);
+	die;
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'delete-post') {
+	$postId = $_POST['post_id'];
+	$sql = "DELETE FROM posts WHERE id = ".$postId;
+
+    if(mysqli_query($conn, $sql)){
+    	$result = ['type' => 'success', 'message' => 'Post has been deleted.'];
+	} else {
+		dd(mysqli_error($conn));
+		$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
+	}
 
 	echo json_encode($result);
 	die;
