@@ -17,7 +17,9 @@ $sql->execute();
 $result = $sql->get_result();
 $post = $result->fetch_assoc();
 
-$sql = $conn->prepare("SELECT * FROM comments WHERE post_id = ?");
+$sql = $conn->prepare("SELECT c.comment_text, c.user_name, c.created_at, cr.reply_text FROM comments c
+    LEFT JOIN comment_replies cr ON cr.comment_id = c.id
+    WHERE is_active = 1 AND post_id = ?");
 $sql->bind_param('i', $postId);
 $sql->execute();
 $comments = $sql->get_result();
@@ -70,7 +72,11 @@ $totalPosts = get('SELECT * FROM posts WHERE is_active = 1');
                             <div class="media-body">
                                 <div class="media-content">
                                     <h6><span><?php echo date('M j, Y', strtotime($comment['created_at'])); ?></span> <?php echo $comment['user_name']; ?></h6>
-                                    <p><?php echo $comment['comment_text']; ?></p>
+                                    <p><?php echo nl2br($comment['comment_text']); ?></p>
+                                    <?php 
+                                    if ($comment['reply_text'] != '') {
+                                        echo '<p class="reply-text">'.nl2br($comment['reply_text']).'<br />- j+o</p>';
+                                    } ?>
                                 </div>
                             </div>
                         </div>

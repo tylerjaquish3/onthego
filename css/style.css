@@ -2836,3 +2836,11 @@ p.category {
     text-align: center;
     margin-top: -15px;
 }
+
+p.reply-text {
+    margin-left: 25px;
+    background: #45D7FA;
+    color: #000;
+    padding: 8px;
+    border-radius: 4px;
+}

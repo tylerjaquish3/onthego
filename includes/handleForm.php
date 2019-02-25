@@ -8,7 +8,7 @@ include '../includes/functions.php';
 if (isset($_POST) && $_POST['action'] == 'save-comment') {
 
 	$postId = $_POST['post_id'];
-	$commentText = escape($_POST['comment_text']);
+    $commentText = mynl2br($_POST['comment_text']);
 	$userName = $_POST['user_name'];
 	$createdAt = date('Y-m-d H:i:s');
     $active = 1;
@@ -20,13 +20,16 @@ if (isset($_POST) && $_POST['action'] == 'save-comment') {
 	if($succeeded){
 		$result = ['type' => 'success', 'message' => 'Comment has been saved.'];
 	} else {
-		// dd(mysqli_error($conn));
 		$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
 	}
 
     echo json_encode($result);
     die;
 }
+
+function mynl2br($text) { 
+   return strtr($text, array("\r\n" => '<br />', "\r" => '<br />', "\n" => '<br />')); 
+} 
 
 if (isset($_POST) && $_POST['action'] == 'send-message') {
 

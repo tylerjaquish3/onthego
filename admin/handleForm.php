@@ -164,5 +164,63 @@ if (isset($_POST['action']) && $_POST['action'] == 'delete-post') {
 	die;
 }
 
+if (isset($_POST['action']) && $_POST['action'] == 'delete-comment') {
+	$commentId = $_POST['comment_id'];
+	$sql = "UPDATE comments SET is_active = 0 WHERE id = ".$commentId;
+
+    if(mysqli_query($conn, $sql)){
+    	$result = ['type' => 'success', 'message' => 'Comment has been deleted.'];
+	} else {
+		dd(mysqli_error($conn));
+		$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
+	}
+
+	echo json_encode($result);
+	die;
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'get-comment') {
+	$commentId = $_POST['comment_id'];
+	$sql = "SELECT * FROM comments WHERE id = ".$commentId;
+
+	$result = mysqli_query($conn, $sql);
+
+    if($result){
+    	$row = mysqli_fetch_array($result);
+    	$response = ['type' => 'success', 'message' => $row];
+	} else {
+		dd(mysqli_error($conn));
+		$response = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
+	}
+
+	echo json_encode($response);
+	die;
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'reply-comment') {
+	$commentId = $_POST['comment_id'];
+	$replyText = escape($_POST['reply_text']);
+	$createdBy = $_POST["user_id"];
+	$createdAt = date('Y-m-d H:i:s');
+
+	$sql = "INSERT INTO comment_replies (comment_id, user_id, reply_text, created_at) VALUES ($commentId, $createdBy, '$replyText', '$createdAt')";
+	
+	// dd($sql);
+
+	if(mysqli_query($conn, $sql)){
+
+		// Update the replied flag
+		$sql = "UPDATE comments SET replied = 1 WHERE id = ".$commentId;
+		mysqli_query($conn, $sql);
+		$result = ['type' => 'success', 'message' => 'Reply has been saved.'];
+	} else {
+		dd(mysqli_error($conn));
+		$result = ['type' => 'error', 'message' => 'There was an error. Please contact admin.'];
+	}
+
+    echo json_encode($result);
+    // header("Location: ".URL."/admin/index.php?message=".$result['type']);
+    die;
+}
 
 ?>
