@@ -10,6 +10,11 @@ function getUser($id)
 
 	$sql = "SELECT * FROM users WHERE id = $id";
 	$result = mysqli_query($conn, $sql);
+	
+	if (!$result) {
+		return "";
+	}
+
 	while($row = mysqli_fetch_array($result)) 
 	{
 		return $row['user_name'];
